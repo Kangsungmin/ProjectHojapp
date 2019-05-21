@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var joinActivityButton = findViewById<View>(R.id.joinButton) as Button
+        var joinActivityButton = findViewById<View>(R.id.joinEmailButton) as Button
 
         joinActivityButton.setOnClickListener{
             val nextIntent = Intent(this, JoinActivity::class.java)
