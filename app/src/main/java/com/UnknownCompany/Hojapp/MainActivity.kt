@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
         var joinActivityButton = findViewById<View>(R.id.joinEmailButton) as Button
 
         joinActivityButton.setOnClickListener{
-            val nextIntent = Intent(this, JoinActivity::class.java)
+            val nextIntent = Intent(this, JoinMemberActivity::class.java)
             startActivity(nextIntent)
         }
     }

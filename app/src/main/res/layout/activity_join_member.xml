@@ -6,7 +6,32 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/bg_login"
-        tools:context=".JoinActivity">
+        tools:context=".JoinMemberActivity">
+    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                          android:id="@+id/rightGuidLine"
+                                          android:orientation="vertical"
+                                          app:layout_constraintGuide_percent="0.9075426"/>
+    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                          android:id="@+id/leftGuidLine"
+                                          android:orientation="vertical"
+                                          app:layout_constraintGuide_begin="39dp"/>
+    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                          android:id="@+id/guideline" app:layout_constraintGuide_begin="60dp"
+                                          android:orientation="horizontal"/>
+    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
+                                          android:id="@+id/bottomGuideLine"
+                                          android:orientation="horizontal" app:layout_constraintGuide_end="60dp"/>
+    <TextView
+            android:text="Welcome!"
+            android:layout_width="145dp"
+            android:layout_height="41dp"
+            android:id="@+id/Title" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toTopOf="@+id/guideline" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine" app:layout_constraintVertical_bias="0.185"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/rightGuidLine"
+            android:layout_marginRight="8dp" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="@+id/leftGuidLine" android:layout_marginLeft="8dp"
+            app:layout_constraintHorizontal_bias="0.046" android:textSize="30sp"/>
     <TextView
             android:text="Email :"
             android:layout_width="48dp"
@@ -78,7 +103,6 @@
             android:text="Join Now!"
             android:layout_width="118dp"
             android:layout_height="46dp"
-            android:onClick="OnJoin"
             android:id="@+id/joinButton" app:layout_constraintEnd_toStartOf="@+id/rightGuidLine"
             android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
             app:layout_constraintStart_toStartOf="@+id/leftGuidLine" android:layout_marginLeft="8dp"
@@ -86,29 +110,4 @@
             app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="@+id/guideline" app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintVertical_bias="0.799"/>
-    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                          android:id="@+id/rightGuidLine"
-                                          android:orientation="vertical"
-                                          app:layout_constraintGuide_percent="0.9075426"/>
-    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                          android:id="@+id/leftGuidLine"
-                                          android:orientation="vertical"
-                                          app:layout_constraintGuide_begin="39dp"/>
-    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                          android:id="@+id/guideline" app:layout_constraintGuide_begin="60dp"
-                                          android:orientation="horizontal"/>
-    <android.support.constraint.Guideline android:layout_width="wrap_content" android:layout_height="wrap_content"
-                                          android:id="@+id/bottomGuideLine"
-                                          android:orientation="horizontal" app:layout_constraintGuide_end="60dp"/>
-    <TextView
-            android:text="Welcome!"
-            android:layout_width="145dp"
-            android:layout_height="41dp"
-            android:id="@+id/Title" android:layout_marginTop="8dp"
-            app:layout_constraintTop_toTopOf="@+id/guideline" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine" app:layout_constraintVertical_bias="0.185"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/rightGuidLine"
-            android:layout_marginRight="8dp" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="@+id/leftGuidLine" android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.046" android:textSize="30sp"/>
 </android.support.constraint.ConstraintLayout>
