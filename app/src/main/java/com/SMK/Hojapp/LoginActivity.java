@@ -28,12 +28,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // [START declare_auth]
     private FirebaseAuth mAuth;
 
-    //private Socket m_socket;
-    final int STATUS_DISCONNECTED = 0;
-    final int STATUS_CONNECTED = 1;
-
-    private final String IP = "http://192.168.234.49";
-
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -56,15 +50,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
-
-        Button joinButton = (Button) findViewById(R.id.joinEmailButton);
-        joinButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, JoinMemberActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void SignIn() {
@@ -104,6 +89,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             Log.d(TAG, "signInWithCredential:success");
                             Log.d(TAG, "signInWithCredential:파이어베이스 아이디 생성 완료!");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            // [Start News Feed activity]
+                            startNewsFeedActivity();
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -121,6 +108,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected  void onStart() {
         super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null) { // 로그인 되어있다면.
+            startNewsFeedActivity();
+        }
     }
 
     // 액티비티가 화면 상단으로 왔을 때.
@@ -141,5 +133,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         if (i == R.id.joinGoogleButton) {
             SignIn();
         }
+    }
+
+    protected void startNewsFeedActivity() {
+        Intent i = new Intent(LoginActivity.this, NewsFeedActivity.class); startActivity(i);
+        finish();
     }
 }
