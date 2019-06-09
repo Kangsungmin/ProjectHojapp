@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "597141951946",
+    "firebase_url": "https://hojapp-243009.firebaseio.com",
+    "project_id": "hojapp-243009",
+    "storage_bucket": "hojapp-243009.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597141951946:android:eb4fa7905d305581",
+        "android_client_info": {
+          "package_name": "com.SMK.Hojapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597141951946-5eju9bf35teklhi7nt2vubniu4sfe4oh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SMK.Hojapp",
+            "certificate_hash": "b86c26a270629f25c69002be0c4a1b015daaaae0"
+          }
+        },
+        {
+          "client_id": "597141951946-e7i1i2vmdukvc0vceme5u9mpvde5v62n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiEtiaI8w1y3vGcUkGFYQYvAYDr9Fuoys"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597141951946-e7i1i2vmdukvc0vceme5u9mpvde5v62n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

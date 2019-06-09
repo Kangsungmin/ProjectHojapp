@@ -1,4 +1,4 @@
-package com.UnknownCompany.Hojapp
+package com.SMK.Hojapp
 
 import org.junit.Test
 
