@@ -1,27 +1,21 @@
-package com.SMK.Hojapp;
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
 
-import android.app.Service;
-import android.content.Intent;
-import android.os.IBinder;
-import android.os.RemoteException;
-import android.util.Log;
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
 
-import java.io.*;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
 
-public class ConnectionService extends Service {
-    // 소켓의 상태를 표현하는 상수
-    final int STATUS_DISCONNECTED = 0;
-    final int STATUS_CONNECTED = 1;
-    // 소켓 소멸 대기시간 (5초)
-    final int TIME_OUT = 5000;
-
-    private int status = STATUS_DISCONNECTED;
-    private Socket socket = null;
-    private SocketAddress socketAddress = null;
-    
-    private int port = 3000;
-
-    IConnectionService.Stub binder = new IConne
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile

@@ -1,10 +1,11 @@
-package com.SMK.Hojapp;
+package com.SMK.Hojapp.Basic;
 
 import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import com.SMK.Hojapp.Login.LoginActivity;
+import com.SMK.Hojapp.R;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -16,7 +17,8 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override public void run() {
                 Intent i = new Intent(SplashActivity.this, LoginActivity.class); startActivity(i);
-                finish(); } }, 3000);
+                finish();
+            } }, 3000);
 
     }
 }

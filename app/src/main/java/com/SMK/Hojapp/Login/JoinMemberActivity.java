@@ -1,15 +1,14 @@
-package com.SMK.Hojapp;
+package com.SMK.Hojapp.Login;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-import io.socket.client.Socket;
+import com.SMK.Hojapp.R;
 
 
 public class JoinMemberActivity extends AppCompatActivity {
     private final String TAG = "JoinMemberActivity";
-    private Socket m_socket;
     EditText m_etId, m_etPw, m_etPwChk;
     String m_sId, m_sPw, m_sPwChk;
 

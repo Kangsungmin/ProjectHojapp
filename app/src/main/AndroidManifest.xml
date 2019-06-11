@@ -12,23 +12,33 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".SplashActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity
+                android:name=".Basic.SplashActivity"
+                android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".LoginActivity">
+
+        <activity android:name=".Login.LoginActivity">
         </activity>
-        <activity android:name=".NewsFeedActivity">
+
+        <activity android:name=".Contents.NewsFeedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
-        <activity android:name=".JoinMemberActivity">
+
+        <activity android:name=".Login.JoinMemberActivity">
         </activity>
+
+        <activity android:name=".Contents.WriteContentsActivity">
+        </activity>
+
     </application>
 
 </manifest>
