@@ -28,7 +28,7 @@
         <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="제목을 입력해주세요."/>
+                android:hint="제목을 입력해주세요." android:id="@+id/contentsTitle"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.constraint.Guideline
             android:orientation="vertical"
@@ -53,7 +53,7 @@
         <android.support.design.widget.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="내용을 입력해주세요." android:gravity="top"/>
+                android:hint="내용을 입력해주세요." android:gravity="top" android:id="@+id/contentsBody"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.constraint.Guideline
             android:orientation="horizontal"
