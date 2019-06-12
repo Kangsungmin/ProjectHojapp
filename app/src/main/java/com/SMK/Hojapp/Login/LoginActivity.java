@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.SMK.Hojapp.Contents.NewsFeedActivity;
+import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -26,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private String TAG = "LoginActivity";
     private static final int RC_SIGN_IN = 10;
 
+    GlobalData globalData;
     // [START declare_auth]
     private FirebaseAuth mAuth;
 
@@ -36,6 +38,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Log.i("LoginActivity","onCreate()");
+
+        globalData = (GlobalData) getApplicationContext();
 
         findViewById(R.id.joinGoogleButton).setOnClickListener(this);
 
@@ -89,7 +93,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             Log.d(TAG, "signInWithCredential:파이어베이스 아이디 생성 완료!");
+
                             FirebaseUser user = mAuth.getCurrentUser();
+                            // [Set Global Data]
+                            long nowTime = System.currentTimeMillis();
+                            Account newAccount = new Account(user.getUid(), nowTime);
+                            globalData.setAccount(newAccount);
+
                             // [Start News Feed activity]
                             startNewsFeedActivity();
                             //updateUI(user);
@@ -112,6 +122,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) { // 로그인 되어있다면.
+            long nowTime = System.currentTimeMillis();
+            Account newAccount = new Account(currentUser.getUid(), nowTime);
+            globalData.setAccount(newAccount);
+
             startNewsFeedActivity();
         }
     }

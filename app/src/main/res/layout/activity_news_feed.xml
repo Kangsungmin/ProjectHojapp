@@ -27,10 +27,10 @@
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/guideline12" app:layout_constraintGuide_end="24dp"/>
+            android:id="@+id/guideline12" app:layout_constraintGuide_end="8dp"/>
     <android.support.constraint.Guideline
             android:orientation="vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" app:layout_constraintGuide_begin="24dp" android:id="@+id/guideline13"/>
+            android:layout_height="wrap_content" app:layout_constraintGuide_begin="8dp" android:id="@+id/guideline13"/>
 
 </android.support.constraint.ConstraintLayout>
