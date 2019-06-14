@@ -25,7 +25,6 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
     AdapterContnets adapterContnets;
 
     private DatabaseReference newsFeedReference;
-    private FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
