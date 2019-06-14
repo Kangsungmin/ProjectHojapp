@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:text="카테고리 이름"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/rowContentsCategoryView"
+                    android:paddingTop="5dp"/>
+            <TextView
+                    android:text="콘텐츠 제목"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/rowContentstitleView"
+                    android:textSize="30sp"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:text="앱은 전 세계적으로 얼마나 빠르게 성장했을까요?사용자들은 특정 앱을 몇 번이나 실행했을까요? 가장 높은 유지율을 보이는 업종은 무엇일까요? 2019 애드저스트 글로벌 앱 트렌드 리포트에서 확인해보세요."
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:id="@+id/rowContentsBodyView"
+                        android:layout_weight="1"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star_big_on"
+                        android:id="@+id/rowContentsPostImageView" android:layout_weight="1"/>
+            </LinearLayout>
+            <TextView
+                    android:text="글쓴이 이름"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:id="@+id/rowContentsWriterView"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:paddingBottom="5dp">
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                        android:id="@+id/rowContentsHitcountImage" android:layout_weight="1"
+                        android:layout_gravity="center"/>
+                <TextView
+                        android:text="조회수"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" android:id="@+id/rowContentsHitcountView"
+                        android:layout_weight="1"
+                        android:gravity="center|left"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                        android:id="@+id/rowContentsLikeImage" android:layout_weight="1"
+                        android:layout_gravity="center"/>
+                <TextView
+                        android:text="좋아요"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" android:id="@+id/rowContentsLikeCountView"
+                        android:layout_weight="1"
+                        android:gravity="center|left"/>
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                        android:id="@+id/rowContentsCommentImage" android:layout_weight="1"
+                        android:layout_gravity="center"/>
+                <TextView
+                        android:text="댓글"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" android:id="@+id/rowContentsCommentCountView"
+                        android:layout_weight="1" android:gravity="center|left"/>
+                <TextView
+                        android:text="방금"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" android:id="@+id/rowContentsTimeView"
+                        android:layout_weight="1"
+                        android:gravity="center|right"/>
+                <Button
+                        android:layout_width="10dp"
+                        android:layout_height="match_parent" android:id="@+id/rowContentsBookmarkButton"
+                        android:layout_weight="1"
+                        android:gravity="right|center_vertical"/>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>
