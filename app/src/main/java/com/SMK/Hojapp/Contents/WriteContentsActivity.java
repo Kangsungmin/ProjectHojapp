@@ -10,9 +10,11 @@ import com.SMK.Hojapp.Login.Account;
 import com.SMK.Hojapp.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import org.w3c.dom.Text;
 
 public class WriteContentsActivity extends AppCompatActivity implements View.OnClickListener {
     private DatabaseReference mDatabase;
+    private TextInputEditText contentsCategoryInput;
     private TextInputEditText contentsTitleInput;
     private TextInputEditText contentsBodyInput;
     private GlobalData globalData;
@@ -26,6 +28,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         findViewById(R.id.completeButton).setOnClickListener(this);
         findViewById(R.id.cancelButton).setOnClickListener(this);
 
+        contentsCategoryInput = (TextInputEditText) findViewById(R.id.categoryInput);
         contentsTitleInput = (TextInputEditText) findViewById(R.id.contentsTitle);
         contentsBodyInput = (TextInputEditText) findViewById(R.id.contentsBody);
 
@@ -39,7 +42,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         int i = view.getId();
         if (i == R.id.completeButton) {
             if(globalData != null) {
-                writeNewContents(globalData.getAccount(), contentsTitleInput.getText().toString(), contentsBodyInput.getText().toString());
+                writeNewContents(contentsCategoryInput.getText().toString(), globalData.getAccount(), contentsTitleInput.getText().toString(), contentsBodyInput.getText().toString());
             }
         }
         else if(i == R.id.cancelButton) {
@@ -47,9 +50,9 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void writeNewContents(Account user, String title, String body) {
+    private void writeNewContents(String categoryName, Account user, String title, String body) {
         long nowTime = System.currentTimeMillis();
-        Contents contents = new Contents(title, body, user.uid, user.name, nowTime);
+        Contents contents = new Contents(categoryName, title, body, user.uid, user.name, nowTime);
         mDatabase.child("contents").child(contents.cid).setValue(contents);
         // TODO : 작성완료 팝업 출력
         finish();

@@ -13,6 +13,9 @@ import com.bumptech.glide.RequestManager;
 
 import java.util.ArrayList;
 
+/*
+ * 뉴스피드에 적용되는 콘텐츠 어댑터
+ */
 public class AdapterContnets extends RecyclerView.Adapter<AdapterContnets.ContentsViewHolder> {
 
     Context context;

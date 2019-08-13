@@ -14,11 +14,13 @@ import com.SMK.Hojapp.R;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;
-
+/*
+ * 모든 카테고리를 보여주는 타임라인
+ */
 public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     final String TAG = "TimeLine";
 
-    private DatabaseReference newsFeedReference;
+    private DatabaseReference newsFeedDbReference;
 
     ArrayList<Contents> contentsArrayList = new ArrayList<>();
     AdapterContnets adapterContnets;
@@ -28,7 +30,7 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
 
     public TimeLine() {
-        // Gerekli Boşluklar
+
     }
 
     @Override
@@ -40,11 +42,11 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_time_line, container, false);
 
-        newsFeedReference = FirebaseDatabase.getInstance().getReference().child("contents");
+        newsFeedDbReference = FirebaseDatabase.getInstance().getReference().child("contents");
 
         // [리소스 초기화 시작]
-        recyclerView = (RecyclerView) v.findViewById(R.id.recyclerView);
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipeLayout);
+        recyclerView = (RecyclerView) v.findViewById(R.id.timeLineRecyclerView);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.timeLineSwipeLayout);
         // [리소스 초기화 끝]
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -80,7 +82,7 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
             }
         };
         // preEventListener는 일회성 이벤트 Listener. 호출된 이후에 자동 제거된다.
-        newsFeedReference.addValueEventListener(preEventListener); // addValueEventListener를 사용하여 1회성 리스너로 사용.
+        newsFeedDbReference.addValueEventListener(preEventListener); // addValueEventListener를 사용하여 1회성 리스너로 사용.
     }
 
     private void populateRecyclerView(@NonNull DataSnapshot dataSnapshot) {
@@ -90,6 +92,7 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
         //3. 어댑터 갱신
         contentsArrayList.clear();
         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+            // contents의 하위 카테고리의 contents들을 가져온다.
             Contents val = snapshot.getValue(Contents.class);
             if(val != null) {
                 contentsArrayList.add(val);

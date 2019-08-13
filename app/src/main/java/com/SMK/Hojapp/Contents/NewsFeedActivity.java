@@ -19,7 +19,9 @@ import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+ * 로그인 액티비티 이후에 나오는 타임라인, 마켓 등을 포함하는 액티비티
+ */
 public class NewsFeedActivity extends AppCompatActivity implements View.OnClickListener{
 
     private String TAG = "NewsFeedActivity";

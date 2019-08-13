@@ -1,10 +1,9 @@
 package com.SMK.Hojapp.Contents;
 
-import com.SMK.Hojapp.Login.Account;
-
 import java.util.UUID;
 
 public class Contents {
+    String category;     // 카테고리
     String cid;          // 콘텐츠 식별 ID
     String parentCid;    // 댓글일 경우 : 부모 게시글 id
     String title;
@@ -23,7 +22,8 @@ public class Contents {
 
     }
 
-    public Contents(String title, String body, String writerUid, String writerName,long createTime) {
+    public Contents(String category, String title, String body, String writerUid, String writerName,long createTime) {
+        this.category = category;
         this.cid = UUID.randomUUID().toString(); // 랜덤 식별 ID 생성
         this.title = title;
         this.body = body;
@@ -32,6 +32,8 @@ public class Contents {
         this.createTime = createTime;
     }
 
+
+
     // getter setter 단축키는 Alt + Ins
     public String getCid() {
         return cid;
@@ -39,6 +41,14 @@ public class Contents {
 
     public void setCid(String cid) {
         this.cid = cid;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getParentCid() {
