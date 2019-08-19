@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+H : 홈
+S : 서치
+C : 채팅
+N : 알림
+M : 내정보/마이페이지
+W : 글 쓰기
+-->
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"

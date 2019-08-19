@@ -1,8 +1,8 @@
 package com.SMK.Hojapp.Contents;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -81,8 +81,11 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
+
+        Query query = newsFeedDbReference.orderByChild("createTime");
+        query.addValueEventListener(preEventListener);
         // preEventListener는 일회성 이벤트 Listener. 호출된 이후에 자동 제거된다.
-        newsFeedDbReference.addValueEventListener(preEventListener); // addValueEventListener를 사용하여 1회성 리스너로 사용.
+        // newsFeedDbReference.addValueEventListener(preEventListener); // addValueEventListener를 사용하여 1회성 리스너로 사용.
     }
 
     private void populateRecyclerView(@NonNull DataSnapshot dataSnapshot) {
@@ -95,7 +98,7 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
             // contents의 하위 카테고리의 contents들을 가져온다.
             Contents val = snapshot.getValue(Contents.class);
             if(val != null) {
-                contentsArrayList.add(val);
+                contentsArrayList.add(0, val); // 시간에 대해 오름차순 결과를 리턴 받기에(내림차순 지원X) 리스트 앞에 삽입.
             }
         }
         adapterContnets.notifyDataSetChanged();     // [어댑터 변경 알림]
