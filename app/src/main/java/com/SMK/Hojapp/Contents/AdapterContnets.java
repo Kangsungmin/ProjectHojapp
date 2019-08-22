@@ -11,7 +11,9 @@ import com.SMK.Hojapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /*
  * 뉴스피드에 적용되는 콘텐츠 어댑터
@@ -40,13 +42,19 @@ public class AdapterContnets extends RecyclerView.Adapter<AdapterContnets.Conten
     public void onBindViewHolder(ContentsViewHolder holder, int position) {
         final Contents contents = contentsArrayList.get(position);
 
+        holder.tvCategory.setText("#" + contents.category);
         holder.tvTitle.setText(contents.title);
         holder.tvBody.setText(contents.body);
         holder.tvWriter.setText(contents.wName);
         holder.tvHitcount.setText(String.valueOf(contents.hitCount));
         holder.tvLike.setText(String.valueOf(contents.likeCount));
         holder.tvComments.setText(String.valueOf(contents.commentCount));
-        holder.tvTime.setText( Long.toString(contents.createTime) ); // 작성 시간
+
+        //currentTimeMillis를 월/일 포맷으로 변환
+        //TODO:1년 이내는 년도 표시 하지 않음. 7일 이내는 n일 전으로 표시.
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        Date resultdate = new Date(contents.createTime);
+        holder.tvTime.setText( sdf.format(resultdate) ); // 작성 시간
 
         if(contents.getBodyPic() == 0) {
             holder.imageViewPostPic.setVisibility(View.GONE);
@@ -64,13 +72,14 @@ public class AdapterContnets extends RecyclerView.Adapter<AdapterContnets.Conten
 
     public class ContentsViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvTitle, tvBody, tvHitcount, tvTime, tvLike, tvComments, tvWriter;
+        TextView tvCategory, tvTitle, tvBody, tvHitcount, tvTime, tvLike, tvComments, tvWriter;
         ImageView imageViewPostPic;
         public ContentsViewHolder(View itemView) {
             super(itemView);
 
             imageViewPostPic = (ImageView) itemView.findViewById(R.id.rowContentsPostImageView);
 
+            tvCategory = (TextView) itemView.findViewById(R.id.rowContentsCategoryView);
             tvTitle = (TextView) itemView.findViewById(R.id.rowContentstitleView);
             tvBody = (TextView) itemView.findViewById(R.id.rowContentsBodyView);
             tvHitcount = (TextView) itemView.findViewById(R.id.rowContentsHitcountView);
