@@ -30,7 +30,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         findViewById(R.id.completeButton).setOnClickListener(this);
         findViewById(R.id.cancelButton).setOnClickListener(this);
 
-        contentsCategoryButton = (Button) findViewById(R.id.cancelButton);
+        contentsCategoryButton = (Button) findViewById(R.id.categoryButton);
         contentsTitleInput = (TextInputEditText) findViewById(R.id.contentsTitle);
         contentsBodyInput = (TextInputEditText) findViewById(R.id.contentsBody);
 
@@ -55,7 +55,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
 
     private void writeNewContents(String categoryName, Account user, String title, String body) {
         long nowTime = System.currentTimeMillis();
-        Contents contents = new Contents(categoryName, title, body, user.uid, user.name, nowTime);
+        Contents contents = new Contents(categoryName, title, body, user.getUid(), user.getName(), nowTime);
         mDatabase.child("contents").child(contents.cid).setValue(contents);
         // TODO : 작성완료 팝업 출력
         finish();
@@ -71,20 +71,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) { // 팝업메뉴의 아이템을 클릭 시.
-        switch (menuItem.getItemId()){
-            case R.id.item1 :
-                Toast.makeText(this, "Item 1 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item2 :
-                Toast.makeText(this, "Item 2 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item3 :
-                Toast.makeText(this, "Item 3 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.item4 :
-                Toast.makeText(this, "Item 4 clicked", Toast.LENGTH_SHORT).show();
-                return true;
-        }
+        contentsCategoryButton.setText(menuItem.getTitle());
         return false;
     }
 }

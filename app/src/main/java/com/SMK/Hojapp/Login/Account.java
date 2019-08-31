@@ -4,12 +4,24 @@ package com.SMK.Hojapp.Login;
  *
  */
 public class Account {
-    public String uid;
-    public String name;
-    public long lastLoginTime;
+    private String uid;
+    private String name;
+    private long lastLoginTime;
 
     public Account(String uid, long lastLoginTime) {
         this.uid = uid;
         this.lastLoginTime = lastLoginTime;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public String getUid(){
+        return uid;
     }
 }

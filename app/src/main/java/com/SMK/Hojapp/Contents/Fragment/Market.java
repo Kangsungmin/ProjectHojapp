@@ -1,4 +1,4 @@
-package com.SMK.Hojapp.Contents;
+package com.SMK.Hojapp.Contents.Fragment;
 
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.SMK.Hojapp.Contents.AdapterContnets;
+import com.SMK.Hojapp.Contents.Contents;
 import com.SMK.Hojapp.R;
 import com.google.firebase.database.*;
 
@@ -19,7 +21,7 @@ import java.util.ArrayList;
  */
 public class Market extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
     final String TAG = "Market";
-    final String nameOfCategory = "market"; // DB에 저장되는 카테고리 이름
+    final String nameOfCategory = "사고팔기"; // DB에 저장되는 카테고리 이름
     private DatabaseReference dbReference;
 
     ArrayList<Contents> contentsArrayList = new ArrayList<>();

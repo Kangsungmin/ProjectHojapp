@@ -1,21 +1,19 @@
 package com.SMK.Hojapp.Contents;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import com.SMK.Hojapp.Chat.ChatActivity;
+import com.SMK.Hojapp.Contents.Fragment.Market;
+import com.SMK.Hojapp.Contents.Fragment.TimeLine;
 import com.SMK.Hojapp.R;
-import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +34,7 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
 
         //database = FirebaseDatabase.getInstance();
         findViewById(R.id.writeButton).setOnClickListener(this);
+        findViewById(R.id.chatButton).setOnClickListener(this);
 
         // [데이터 초기화 시작]
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -107,8 +106,17 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
         Log.d(TAG, "event occurred.");
 
         int i = view.getId();
-        if (i == R.id.writeButton) { // Open WriteContentsActivity
-            Intent intent = new Intent(NewsFeedActivity.this, WriteContentsActivity.class); startActivity(intent);
+        switch (i) { // Open WriteContentsActivity
+            case  R.id.writeButton :
+            {
+                Intent intent = new Intent(NewsFeedActivity.this, WriteContentsActivity.class); startActivity(intent);
+                break;
+            }
+            case R.id.chatButton:
+            {
+                Intent intent = new Intent(NewsFeedActivity.this, ChatActivity.class); startActivity(intent);
+                break;
+            }
         }
     }
 
