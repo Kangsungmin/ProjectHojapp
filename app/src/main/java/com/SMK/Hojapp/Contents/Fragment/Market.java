@@ -1,8 +1,8 @@
 package com.SMK.Hojapp.Contents.Fragment;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.SMK.Hojapp.Contents.AdapterContnets;
-import com.SMK.Hojapp.Contents.Contents;
+import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.R;
 import com.google.firebase.database.*;
 

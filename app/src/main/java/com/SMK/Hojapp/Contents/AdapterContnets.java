@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
@@ -17,6 +18,12 @@ import java.util.Date;
 
 /*
  * 뉴스피드에 적용되는 콘텐츠 어댑터
+ * ||                           ||
+ * ||---------------------------||스
+ * ||                           ||크
+ * ||           콘텐츠           ||롤
+ * ||---------------------------||
+ *
  */
 public class AdapterContnets extends RecyclerView.Adapter<AdapterContnets.ContentsViewHolder> {
 
@@ -42,18 +49,18 @@ public class AdapterContnets extends RecyclerView.Adapter<AdapterContnets.Conten
     public void onBindViewHolder(ContentsViewHolder holder, int position) {
         final Contents contents = contentsArrayList.get(position);
 
-        holder.tvCategory.setText("#" + contents.category);
-        holder.tvTitle.setText(contents.title);
-        holder.tvBody.setText(contents.body);
-        holder.tvWriter.setText(contents.wName);
-        holder.tvHitcount.setText(String.valueOf(contents.hitCount));
-        holder.tvLike.setText(String.valueOf(contents.likeCount));
-        holder.tvComments.setText(String.valueOf(contents.commentCount));
+        holder.tvCategory.setText("#" + contents.getCategory());
+        holder.tvTitle.setText(contents.getTitle());
+        holder.tvBody.setText(contents.getBody());
+        holder.tvWriter.setText(contents.getwName());
+        holder.tvHitcount.setText(String.valueOf(contents.getHitCount()));
+        holder.tvLike.setText(String.valueOf(contents.getLikeCount()));
+        holder.tvComments.setText(String.valueOf(contents.getCommentCount()));
 
         //currentTimeMillis를 월/일 포맷으로 변환
         //TODO:1년 이내는 년도 표시 하지 않음. 7일 이내는 n일 전으로 표시.
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-        Date resultdate = new Date(contents.createTime);
+        Date resultdate = new Date(contents.getCreateTime());
         holder.tvTime.setText( sdf.format(resultdate) ); // 작성 시간
 
         if(contents.getBodyPic() == 0) {

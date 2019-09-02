@@ -1,0 +1,27 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical">
+    <!-- A CardView that contains a TextView -->
+    <TextView
+            android:textSize="15sp"
+            android:id="@+id/TextView_members"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:text="name"/>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:textSize="20sp"
+                android:id="@+id/TextView_last_msg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:text="hello android"/>
+        <TextView
+                android:textSize="15sp"
+                android:id="@+id/TextView_update_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:text="time" android:gravity="right"/>
+    </LinearLayout>
+</LinearLayout>

@@ -62,7 +62,7 @@ public class ChatActivity extends AppCompatActivity {
 
 
 
-        mRecyclerView = findViewById(R.id.my_recycler_view);
+        mRecyclerView = findViewById(R.id.chat_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
@@ -78,7 +78,6 @@ public class ChatActivity extends AppCompatActivity {
 
 
         //caution!!!
-
         myRef.child("message").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -114,9 +113,6 @@ public class ChatActivity extends AppCompatActivity {
 
         //1-1. recyclerview - chat data
         //1. message, nickname - Data Transfer Object
-
-
-
 
     }
 }

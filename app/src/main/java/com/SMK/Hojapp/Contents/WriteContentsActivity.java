@@ -7,7 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
-import android.widget.Toast;
+import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.Login.Account;
 import com.SMK.Hojapp.R;
@@ -56,7 +56,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
     private void writeNewContents(String categoryName, Account user, String title, String body) {
         long nowTime = System.currentTimeMillis();
         Contents contents = new Contents(categoryName, title, body, user.getUid(), user.getName(), nowTime);
-        mDatabase.child("contents").child(contents.cid).setValue(contents);
+        mDatabase.child("contents").child(contents.getCid()).setValue(contents);
         // TODO : 작성완료 팝업 출력
         finish();
     }

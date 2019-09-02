@@ -1,4 +1,4 @@
-package com.SMK.Hojapp.Contents;
+package com.SMK.Hojapp.Contents.ContentsTypes;
 
 import java.util.UUID;
 
@@ -33,7 +33,7 @@ public class Contents {
     }
 
 
-
+    //-----------------------------------------------------------------------------------------
     // getter setter 단축키는 Alt + Ins
     public String getCid() {
         return cid;

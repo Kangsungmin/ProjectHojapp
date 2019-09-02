@@ -1,16 +1,16 @@
 package com.SMK.Hojapp.Contents;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import com.SMK.Hojapp.Chat.ChatActivity;
+import com.SMK.Hojapp.Chat.ChatRoomListActivity;
 import com.SMK.Hojapp.Contents.Fragment.Market;
 import com.SMK.Hojapp.Contents.Fragment.TimeLine;
 import com.SMK.Hojapp.R;
@@ -114,7 +114,7 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
             }
             case R.id.chatButton:
             {
-                Intent intent = new Intent(NewsFeedActivity.this, ChatActivity.class); startActivity(intent);
+                Intent intent = new Intent(NewsFeedActivity.this, ChatRoomListActivity.class); startActivity(intent);
                 break;
             }
         }
