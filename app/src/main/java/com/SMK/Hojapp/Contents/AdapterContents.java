@@ -1,6 +1,7 @@
 package com.SMK.Hojapp.Contents;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,22 +26,40 @@ import java.util.Date;
  * ||---------------------------||
  *
  */
-public class AdapterContnets extends RecyclerView.Adapter<AdapterContnets.ContentsViewHolder> {
+public class AdapterContents extends RecyclerView.Adapter<AdapterContents.ContentsViewHolder> {
 
     Context context;
     ArrayList<Contents> contentsArrayList = new ArrayList<>();
     RequestManager glide;
 
-    public AdapterContnets(Context context, ArrayList<Contents> contentsArrayList) {
+    public AdapterContents(Context context, ArrayList<Contents> contentsArrayList) {
         this.context = context;
         this.contentsArrayList = contentsArrayList;
         glide = Glide.with(context);
     }
 
     @Override
-    public ContentsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_feed, parent, false);
-        ContentsViewHolder viewHolder = new ContentsViewHolder(view);
+    public ContentsViewHolder onCreateViewHolder(final ViewGroup parent, int viewType) {
+        final View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_feed, parent, false);
+
+        final ContentsViewHolder viewHolder = new ContentsViewHolder(view);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //액티비티 전환에 필요한 정보들을 넘겨준다.
+                Intent i = new Intent(context, ContentsDetailActivity.class);
+                final int position = viewHolder.getAdapterPosition();
+                final Contents contents = contentsArrayList.get(position);
+
+                i.putExtra("CATEGORY", contents.getCategory());
+                i.putExtra("TITLE", contents.getTitle());
+                i.putExtra("WRITER", contents.getwName());
+                i.putExtra("TIME", contents.getCreateTime());
+                i.putExtra("BODY", contents.getBody());
+                context.startActivity(i);
+            }
+        });
 
         return viewHolder;
     }
@@ -60,8 +79,8 @@ public class AdapterContnets extends RecyclerView.Adapter<AdapterContnets.Conten
         //currentTimeMillis를 월/일 포맷으로 변환
         //TODO:1년 이내는 년도 표시 하지 않음. 7일 이내는 n일 전으로 표시.
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-        Date resultdate = new Date(contents.getCreateTime());
-        holder.tvTime.setText( sdf.format(resultdate) ); // 작성 시간
+        Date resultDate = new Date(contents.getCreateTime());
+        holder.tvTime.setText( sdf.format(resultDate) ); // 작성 시간
 
         if(contents.getBodyPic() == 0) {
             holder.imageViewPostPic.setVisibility(View.GONE);

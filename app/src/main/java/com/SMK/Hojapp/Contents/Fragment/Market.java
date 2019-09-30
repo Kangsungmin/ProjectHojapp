@@ -10,7 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.SMK.Hojapp.Contents.AdapterContnets;
+import com.SMK.Hojapp.Contents.AdapterContents;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.R;
 import com.google.firebase.database.*;
@@ -25,7 +25,7 @@ public class Market extends Fragment implements SwipeRefreshLayout.OnRefreshList
     private DatabaseReference dbReference;
 
     ArrayList<Contents> contentsArrayList = new ArrayList<>();
-    AdapterContnets adapterContnets;
+    AdapterContents adapterContents;
 
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -53,8 +53,8 @@ public class Market extends Fragment implements SwipeRefreshLayout.OnRefreshList
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        adapterContnets = new AdapterContnets(v.getContext(), contentsArrayList);
-        recyclerView.setAdapter(adapterContnets);
+        adapterContents = new AdapterContents(v.getContext(), contentsArrayList);
+        recyclerView.setAdapter(adapterContents);
 
         swipeRefreshLayout.setOnRefreshListener(this);
 
@@ -100,7 +100,7 @@ public class Market extends Fragment implements SwipeRefreshLayout.OnRefreshList
                 contentsArrayList.add(val);
             }
         }
-        adapterContnets.notifyDataSetChanged();     // [어댑터 변경 알림]
+        adapterContents.notifyDataSetChanged();     // [어댑터 변경 알림]
     }
 
     @Override
