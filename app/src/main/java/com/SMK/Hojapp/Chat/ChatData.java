@@ -7,8 +7,17 @@ package com.SMK.Hojapp.Chat;
 // 4. 방에 대한 정보는 {대화 상대닉네임들, 가장 마지막 대화, 마지막 갱신 시간}으로 구성된다.
 
 public class ChatData {
+    private String roomID = "";
     private String msg = "";
     private String nickname = "";
+
+    public String getRoomID() {
+        return roomID;
+    }
+
+    public void setRoomID(String roomID) {
+        this.roomID = roomID;
+    }
 
     public String getMsg() {
         return msg;

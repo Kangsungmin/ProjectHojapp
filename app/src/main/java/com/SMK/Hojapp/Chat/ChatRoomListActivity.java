@@ -27,7 +27,7 @@ public class ChatRoomListActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     public  RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<ChatRoomData> chatList;
+    private ArrayList<ChatRoomData> chatList;
     private String nick = "unknownName";
 
     private EditText EditText_chat;
@@ -48,11 +48,9 @@ public class ChatRoomListActivity extends AppCompatActivity {
         Button_make_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChatRoomData chatRoom = new ChatRoomData();
-                chatRoom.setMembers(nick);
-                chatRoom.setLastMsg("마지막 메시지");
-                chatRoom.setUpdateTime( System.currentTimeMillis() );
-                myRef.child("message_room_list").push().setValue(chatRoom);
+                ChatRoomData chatRoom = new ChatRoomData("대화를 시작하세요.", "상대방 ID", System.currentTimeMillis());
+                // 채팅방 DB 추가
+                myRef.child("message_room_list").child(chatRoom.getRoomID()).setValue(chatRoom);
             }
         });
 
@@ -75,9 +73,10 @@ public class ChatRoomListActivity extends AppCompatActivity {
         myRef.child("message_room_list").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("chat room added.", dataSnapshot.getValue().toString());
+                //TODO: 채팅방정보를 읽는 부분에서 싱크가 맞지 않아 죽는다. 수정해야 함. 콘텐츠 구현 참고.
                 ChatRoomData chatRoom = dataSnapshot.getValue(ChatRoomData.class);
                 ((AdapterChatRoom) mAdapter).addChat(chatRoom);
+                Log.d("chat room added.", dataSnapshot.getValue().toString());
             }
 
             @Override
