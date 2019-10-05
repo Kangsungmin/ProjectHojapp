@@ -1,7 +1,9 @@
 package com.SMK.Hojapp.Chat;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,23 +13,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.R;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChatActivity extends AppCompatActivity {
-
+public class ChatActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
+    final String TAG = "ChatActivity";
+    private DatabaseReference chatDbReference;
     private RecyclerView mRecyclerView;
     public  RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<ChatData> chatList;
+    private String roomID = ""; // 현재 방의 식별자
     private String nick = "unknownName";
 
     private EditText EditText_chat;
@@ -41,6 +42,10 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         globalData = (GlobalData) getApplicationContext();
+        chatDbReference = FirebaseDatabase.getInstance().getReference().child("message");
+
+        Intent intent = getIntent(); /*데이터 수신*/
+        roomID = intent.getExtras().getString("ID_ROOM");
         nick = globalData.getAccount().getUid();
         Button_send = findViewById(R.id.Button_send);
         EditText_chat = findViewById(R.id.EditText_chat);
@@ -54,9 +59,9 @@ public class ChatActivity extends AppCompatActivity {
                     ChatData chat = new ChatData();
                     chat.setNickname(nick);
                     chat.setMsg(msg);
+                    chat.setRoomID(roomID);
                     myRef.child("message").push().setValue(chat); //push().setValue(chat);
                 }
-
             }
         });
 
@@ -76,8 +81,11 @@ public class ChatActivity extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference();
 
+        // 메세지 갱신함수
+        getChatData();
 
-        //caution!!!
+        // 현재 Room ID 와 일치한 메세지 쿼리를 수행한다.
+        /*
         myRef.child("message").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -106,7 +114,7 @@ public class ChatActivity extends AppCompatActivity {
 
             }
         });
-
+        */
         //1. recyclerView - 반복
         //2. 디비 내용을 넣는다
         //3. 상대방폰에 채팅 내용이 보임 - get
@@ -114,5 +122,45 @@ public class ChatActivity extends AppCompatActivity {
         //1-1. recyclerview - chat data
         //1. message, nickname - Data Transfer Object
 
+    }
+
+
+    private void getChatData() {
+        // 리스너 생성
+        // 정렬
+        // 리스너 추가
+        ValueEventListener preEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                populateRecyclerView(dataSnapshot);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
+        Query query = chatDbReference.orderByChild("roomID").equalTo(roomID); // 쿼리 생성. 현재 방과 일치하는 채팅 필터
+        query.addValueEventListener(preEventListener);
+    }
+
+    private void populateRecyclerView(@NonNull DataSnapshot dataSnapshot) {
+        chatList.clear();
+        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+            // contents의 하위 카테고리의 contents들을 가져온다.
+            ChatData val = snapshot.getValue(ChatData.class);
+            if(val != null) {
+                chatList.add(val); // 리스트 뒤에 삽입
+            }
+        }
+        mAdapter.notifyDataSetChanged();     // [어댑터 변경 알림]
+    }
+
+    @Override
+    public void onRefresh() {
+        getChatData(); // 피드 새로고침 호출
+        //swipeRefreshLayout.setRefreshing(false);
     }
 }

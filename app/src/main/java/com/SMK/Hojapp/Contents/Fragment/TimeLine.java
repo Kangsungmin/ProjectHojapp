@@ -71,7 +71,7 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
             // 경로의 전체 내용에 대한 변경 사항을 읽고 수신 대기합니다.
             // 리스너가 연결될 때 한 번 호출된 후 하위를 포함한 데이터가 변경될 때마다 다시 호출됩니다. (DB가 주도적으로 호출)
             // 모든 데이터를 포함하는 스냅샷이 이벤트 콜백에 전달
-            // 데이터가 없으면 스냅샷은 exists() 호출 시 false를 반환하고, getValue() 호출 시 null을 반환
+            // 데이터가 없으면 스냅샷은 exists() 호출 시 false 를 반환하고, getValue() 호출 시 null을 반환
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 populateRecyclerView(dataSnapshot);

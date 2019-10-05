@@ -66,7 +66,7 @@ public class AdapterChatRoom extends RecyclerView.Adapter<AdapterChatRoom.ChatRo
                 final int position = viewHolder.getAdapterPosition();
                 final ChatRoomData roomData = rommDataList.get(position);
 
-                i.putExtra("ID_CHAT", roomData.getRoomID()); //채팅방 식별자를 넘겨준다.
+                i.putExtra("ID_ROOM", roomData.getRoomID()); //채팅방 식별자를 넘겨준다.
                 context.startActivity(i);
             }
         });
