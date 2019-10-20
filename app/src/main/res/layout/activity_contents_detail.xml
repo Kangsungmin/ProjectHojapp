@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -12,48 +12,169 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <Button
-                    android:text="Button"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/button" android:layout_weight="1"/>
+                    android:layout_height="match_parent" android:layout_weight="1">
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                        android:id="@+id/commentCameraImage" android:layout_weight="1"
+                        android:layout_gravity="left"/>
+                <TextView
+                        android:text="뒤로가기"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" android:id="@+id/com"
+                        android:layout_weight="1"
+                        android:gravity="center|left" android:layout_gravity="left"/>
+            </LinearLayout>
+            <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_weight="4"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                    android:id="@+id/alarmImage" android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                    android:id="@+id/bookMarkImage" android:layout_weight="1"
+                    android:layout_gravity="center"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                    android:id="@+id/optionImage" android:layout_weight="1"
+                    android:layout_gravity="center"/>
         </LinearLayout>
-        <LinearLayout
-                android:orientation="vertical"
+
+        <android.support.v4.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <TextView
-                    android:text="카테고리"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/categoryView"/>
-            <TextView
-                    android:text="제목"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/titleView" android:textSize="36sp"/>
-            <TextView
-                    android:text="작성자 홍길동"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/writerView"/>
-            <TextView
-                    android:text="yyyy.mm.dd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:id="@+id/writeTimeView"/>
+                android:layout_height="match_parent"
+                android:id="@+id/contentsDetailSwipeLayout">
+
             <LinearLayout
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:id="@+id/contentsBodyLayout">
+                    android:layout_height="match_parent" android:layout_weight="1">
                 <TextView
-                        android:text="내용"
+                        android:text="카테고리"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:id="@+id/contentsTextView"/>
+                        android:layout_height="wrap_content" android:id="@+id/categoryView"/>
+                <TextView
+                        android:text="제목"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/titleView" android:textSize="36sp"/>
+                <TextView
+                        android:text="작성자 홍길동"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/writerView"/>
+                <TextView
+                        android:text="yyyy.mm.dd"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:id="@+id/writeTimeView"/>
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                              android:orientation="vertical">
+                    <LinearLayout
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:id="@+id/contentsBodyLayout">
+                        <TextView
+                                android:text="내용"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" android:id="@+id/contentsTextView"/>
+                    </LinearLayout>
+                    <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" android:paddingBottom="5dp">
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                                android:id="@+id/rowContentsHitcountsImage" android:layout_weight="1"
+                                android:layout_gravity="center"/>
+                        <TextView
+                                android:text="조회수"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" android:id="@+id/rowContentsHitcountView"
+                                android:layout_weight="1"
+                                android:gravity="center|left"/>
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                                android:id="@+id/rowContentsLikeImage" android:layout_weight="1"
+                                android:layout_gravity="center"/>
+                        <TextView
+                                android:text="좋아요"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" android:id="@+id/rowContentsLikeCountView"
+                                android:layout_weight="1"
+                                android:gravity="center|left"/>
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                                android:id="@+id/rowContentsCommentImage" android:layout_weight="1"
+                                android:layout_gravity="center"/>
+                        <TextView
+                                android:text="댓글쓰기"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" android:id="@+id/rowContentsCommentCountView"
+                                android:layout_weight="1" android:gravity="center|left"/>
+                        <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                                android:id="@+id/rowContentsCommentImage2" android:layout_weight="1"
+                                android:layout_gravity="center"/>
+                        <TextView
+                                android:text="공유하기"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent" android:id="@+id/rowContentsCommentCountView2"
+                                android:layout_weight="1" android:gravity="center|left"/>
+                    </LinearLayout>
+                    <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <ListView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" android:id="@+id/commentRecyclerView"/>
+                    </FrameLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
-        </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+    </LinearLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" android:baselineAligned="false" tools:layout_editor_absoluteY="731dp"
+            android:gravity="bottom">
+
         <LinearLayout
                 android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center_vertical">
+            <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                    android:id="@+id/imageView" android:layout_weight="1"/>
+            <EditText
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName"
+                    android:ems="10"
+                    android:id="@+id/commentInput" android:layout_weight="1" android:hint="댓글을 입력하세요."/>
+            <TextView
+                    android:text="등록"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content" android:id="@+id/enterTextView" android:layout_weight="1"
+                    android:onClick="onClick"/>
         </LinearLayout>
     </LinearLayout>
-</android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

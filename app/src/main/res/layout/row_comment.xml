@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white" android:id="@+id/rowContentsLayout">
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <TextView
+                android:text="작성자"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/commentWriter"/>
+        <TextView
+                android:text="TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/commentBody"/>
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:gravity="center_vertical">
+            <TextView
+                    android:text="작성시간"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/commentWriteTime" android:layout_weight="1"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                    android:id="@+id/imageView2" android:layout_weight="1"/>
+            <TextView
+                    android:text="좋아요"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/commentLikeText" android:layout_weight="1"/>
+            <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                    android:id="@+id/imageView3" android:layout_weight="1"/>
+            <TextView
+                    android:text="대댓글"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:id="@+id/commentOfCommentText"
+                    android:layout_weight="1"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

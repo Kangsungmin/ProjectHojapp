@@ -24,7 +24,7 @@ public class Market extends Fragment implements SwipeRefreshLayout.OnRefreshList
     final String nameOfCategory = "사고팔기"; // DB에 저장되는 카테고리 이름
     private DatabaseReference dbReference;
 
-    ArrayList<Contents> contentsArrayList = new ArrayList<>();
+    ArrayList<Contents> contentsArrayList;
     AdapterContents adapterContents;
 
     RecyclerView recyclerView;
@@ -43,7 +43,6 @@ public class Market extends Fragment implements SwipeRefreshLayout.OnRefreshList
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_market, container, false);
 
-        // TODO : DB에서 마켓 카테고리에 해당하는 분류만 가져오도록 설정한다.
         dbReference = FirebaseDatabase.getInstance().getReference().child("contents");
 
         // [리소스 초기화 시작]
@@ -53,6 +52,7 @@ public class Market extends Fragment implements SwipeRefreshLayout.OnRefreshList
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        contentsArrayList = new ArrayList<Contents>();
         adapterContents = new AdapterContents(v.getContext(), contentsArrayList);
         recyclerView.setAdapter(adapterContents);
 

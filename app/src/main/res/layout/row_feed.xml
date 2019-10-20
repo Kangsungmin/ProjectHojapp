@@ -49,7 +49,7 @@
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                        android:id="@+id/rowContentsHitcountImage" android:layout_weight="1"
+                        android:id="@+id/rowContentsHitcountsImage" android:layout_weight="1"
                         android:layout_gravity="center"/>
                 <TextView
                         android:text="조회수"
@@ -90,6 +90,7 @@
                         android:layout_weight="1"
                         android:gravity="right|center_vertical"/>
             </LinearLayout>
+
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>
