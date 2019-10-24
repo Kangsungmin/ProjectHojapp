@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.SMK.Hojapp.Contents.AdapterContents;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
+import com.SMK.Hojapp.Contents.ContentsTypes.ViewType;
 import com.SMK.Hojapp.R;
 import com.google.firebase.database.*;
 
@@ -30,7 +31,6 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     RecyclerView recyclerView;
     SwipeRefreshLayout swipeRefreshLayout;
 
-
     public TimeLine() {
 
     }
@@ -44,6 +44,7 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.activity_time_line, container, false);
 
+        // DB 에서 viewType 이 Contents 인 데이터만 로드한다.
         newsFeedDbReference = FirebaseDatabase.getInstance().getReference().child("contents");
 
         // [리소스 초기화 시작]
@@ -55,11 +56,9 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
         adapterContents = new AdapterContents(v.getContext(), contentsArrayList);
         recyclerView.setAdapter(adapterContents);
-
         swipeRefreshLayout.setOnRefreshListener(this);
 
         getNewsFeedData();
-
         return v;
     }
 
@@ -83,8 +82,7 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
                 Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             }
         };
-
-        Query query = newsFeedDbReference.orderByChild("createTime");
+        Query query = newsFeedDbReference.orderByChild("viewType").equalTo(ViewType.ROW_CONTENTS_DETAIL);
         query.addValueEventListener(preEventListener);
         // preEventListener는 일회성 이벤트 Listener. 호출된 이후에 자동 제거된다.
         // newsFeedDbReference.addValueEventListener(preEventListener); // addValueEventListener를 사용하여 1회성 리스너로 사용.
@@ -93,9 +91,11 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
     private void populateRecyclerView(@NonNull DataSnapshot dataSnapshot) {
         //Firebase의 데이터베이스에서 뉴스피드데이터를 받아온다.
         //1. 기존 리스트 초기화
+        // TODO: 결과에 대한 데이터 재 정렬
         //2. 스냅샷 객체화 & 리스트 추가
         //3. 어댑터 갱신
         contentsArrayList.clear();
+
         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
             // contents의 하위 카테고리의 contents들을 가져온다.
             Contents val = snapshot.getValue(Contents.class);

@@ -60,7 +60,6 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
                 int position = viewHolder.getAdapterPosition();
                 final Contents contents = contentsArrayList.get(position);
 
-                //TODO: 내가 좋아요를 누른 게시물이 아닐 경우!
                 boolean am_i_liked = contents.isInLikeUserMap(globalData.getAccount().getUid());
                 if(am_i_liked == false) {
                     contents.insertLikeUser(globalData.getAccount().getUid()); // 좋아요 유저 추가
@@ -91,7 +90,8 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
                 i.putExtra("CATEGORY", contents.getCategory() );
                 i.putExtra("TITLE", contents.getTitle() );
                 i.putExtra("WRITER", contents.getwUid() ); //TODO: 닉네임으로 수정 할 것
-                i.putExtra("TIME", getFormedDate(contents.getCreateTime()) );
+                i.putExtra("WRITER_UID", contents.getwUid() );
+                i.putExtra("TIME", contents.getCreateTime() + "");
                 i.putExtra("BODY", contents.getBody() );
                 i.putExtra("HIT_COUNT", contents.getHitCount() + "" );
                 i.putExtra("LIKE_COUNT", contents.getLikeUserCount() + "" );

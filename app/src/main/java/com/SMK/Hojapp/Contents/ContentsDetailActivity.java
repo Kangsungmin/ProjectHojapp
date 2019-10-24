@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
+import com.SMK.Hojapp.Contents.ContentsTypes.ViewType;
 import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.Login.Account;
 import com.SMK.Hojapp.R;
@@ -23,17 +24,16 @@ import java.util.ArrayList;
  * 콘텐츠 상세화면
  * 게시물의 제목, 작성자, 내용, 작성시간, 댓글이 표시된다.
  */
-//TODO: 댓글을 RecyclerView가 아닌
 public class ContentsDetailActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     final String TAG = "ContentsDetailActivity";
 
     String nowContent_ID = "";
-    TextView categoryView, titleView, writerNameView, writeTimeView, bodyTextView, hitCountView, likeCountView;
+    //TextView categoryView, titleView, writerNameView, writeTimeView, bodyTextView, hitCountView, likeCountView;
     private EditText commentInputText;
     private  TextView enterText;
 
-    ArrayList<Contents> commentContentsArrayList;
-    AdapterComment adapterCommentContents; // 댓글 어댑터
+    ArrayList<Contents> ContentsDetailDataArrayList;
+    AdapterDetailedContents adapterDetailedContents; // 댓글 어댑터
 
     RecyclerView recyclerView; // 댓글 리사이클러뷰
     SwipeRefreshLayout swipeRefreshLayout;
@@ -46,7 +46,7 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
 
         dbReference = FirebaseDatabase.getInstance().getReference().child("contents");
         globalData = (GlobalData) getApplicationContext();
-
+/*
         categoryView = (TextView) findViewById(R.id.categoryView);
         titleView = (TextView) findViewById(R.id.titleView);
         writerNameView = (TextView) findViewById(R.id.writerView);
@@ -54,6 +54,7 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
         bodyTextView = (TextView) findViewById(R.id.contentsTextView);
         hitCountView = (TextView) findViewById(R.id.rowContentsHitcountView);
         likeCountView = (TextView) findViewById(R.id.rowContentsLikeCountView);
+*/
         commentInputText = (EditText) findViewById(R.id.commentInput);
         enterText = (TextView) findViewById(R.id.enterTextView);
         enterText.setOnClickListener(this);
@@ -61,6 +62,7 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
         Intent intent = getIntent(); /*데이터 수신*/
 
         nowContent_ID = intent.getExtras().getString("CONTENTS_ID");
+/*
         categoryView.setText("#" + intent.getExtras().getString("CATEGORY"));
         titleView.setText(intent.getExtras().getString("TITLE"));
         writerNameView.setText(intent.getExtras().getString("WRITER"));
@@ -68,16 +70,34 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
         bodyTextView.setText(intent.getExtras().getString("BODY"));
         hitCountView.setText(intent.getExtras().getString("HIT_COUNT"));
         likeCountView.setText(intent.getExtras().getString("LIKE_COUNT"));
+*/
 
         recyclerView = (RecyclerView) findViewById(R.id.commentRecyclerView);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.contentsDetailSwipeLayout);
-        commentContentsArrayList = new ArrayList<Contents>();
-        adapterCommentContents = new AdapterComment(getApplicationContext(), commentContentsArrayList);
-        recyclerView.setAdapter(adapterCommentContents);
+        ContentsDetailDataArrayList = new ArrayList<Contents>();
+        adapterDetailedContents = new AdapterDetailedContents(getApplicationContext(), ContentsDetailDataArrayList);
+        recyclerView.setAdapter(adapterDetailedContents);
         recyclerView.setLayoutManager(new LinearLayoutManager((this)));
         swipeRefreshLayout.setOnRefreshListener(this);
 
+        // 상단 게시글을 ContentsDetailDataArrayList 에 추가한다.
+        setContentsDetailData(intent);
+
         getCommentContentsData();
+    }
+
+    private void setContentsDetailData(Intent intent) {
+        // 상단 게시글 초기화
+
+        long wTime = Long.parseLong(intent.getExtras().getString("TIME"));
+
+        //Contents(int vType, String category, String title, String body, String writerUid, String writerName, long createTime)
+        Contents detailedContents = new Contents(ViewType.ROW_CONTENTS_DETAIL, intent.getExtras().getString("CATEGORY"),
+                intent.getExtras().getString("BODY"), intent.getExtras().getString("WRITER_UID"), intent.getExtras().getString("WRITER"),
+                wTime);
+
+        ContentsDetailDataArrayList.add(detailedContents);
+        adapterDetailedContents.notifyDataSetChanged();     // [어댑터 변경 알림]
     }
 
     private void getCommentContentsData() {
@@ -104,19 +124,24 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
         //1. 기존 리스트 초기화
         //2. 스냅샷 객체화 & 리스트 추가
         //3. 어댑터 갱신
-        commentContentsArrayList.clear();
+        Intent intent = getIntent(); /*데이터 수신*/
+        ContentsDetailDataArrayList.clear();
+
+        // 게시글 세팅
+        setContentsDetailData(intent);
+
         for(DataSnapshot snapshot : dataSnapshot.getChildren()){
             Contents val = snapshot.getValue(Contents.class);
             if(val != null) {
-                commentContentsArrayList.add(val);
+                ContentsDetailDataArrayList.add(val);
             }
         }
-        adapterCommentContents.notifyDataSetChanged();     // [어댑터 변경 알림]
+        adapterDetailedContents.notifyDataSetChanged();     // [어댑터 변경 알림]
     }
 
     private void writeNewComment(Account user, String body) {
         long nowTime = System.currentTimeMillis();
-        Contents contents = new Contents(nowContent_ID, body, user.getUid(), user.getName(), nowTime);
+        Contents contents = new Contents(ViewType.COMMENT, nowContent_ID, body, user.getUid(), user.getName(), nowTime);
         dbReference.child(contents.getCid()).setValue(contents);
         // TODO : 작성완료 팝업 출력
     }

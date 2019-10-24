@@ -55,7 +55,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
 
     private void writeNewContents(String categoryName, Account user, String title, String body) {
         long nowTime = System.currentTimeMillis();
-        Contents contents = new Contents(categoryName, title, body, user.getUid(), user.getName(), nowTime);
+        Contents contents = new Contents(ViewType.ROW_CONTENTS_DETAIL, categoryName, title, body, user.getUid(), user.getName(), nowTime);
         mDatabase.child("contents").child(contents.getCid()).setValue(contents);
         // TODO : 작성완료 팝업 출력
         finish();

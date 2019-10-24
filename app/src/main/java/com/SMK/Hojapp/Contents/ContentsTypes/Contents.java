@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Contents {
+    private int viewType;
     String category;     // 카테고리
     String cid;          // 콘텐츠 식별 ID
     String parentCid;    // 댓글일 경우 : 부모 게시글 id
@@ -27,7 +28,8 @@ public class Contents {
         this.commentList = new ArrayList<Contents>();
     }
 
-    public Contents(String category, String title, String body, String writerUid, String writerName, long createTime) {
+    public Contents(int vType, String category, String title, String body, String writerUid, String writerName, long createTime) {
+        this.viewType = vType;
         this.category = category;
         this.cid = UUID.randomUUID().toString(); // 랜덤 식별 ID 생성
         this.parentCid = "0"; // 댓글이 아닐 경우
@@ -40,7 +42,8 @@ public class Contents {
         this.commentList = new ArrayList<Contents>();
     }
 
-    public Contents(String parentCid, String body, String writerUid, String writerName, long createTime) {
+    public Contents(int vType, String parentCid, String body, String writerUid, String writerName, long createTime) {
+        this.viewType = vType;
         this.cid = UUID.randomUUID().toString(); // 랜덤 식별 ID 생성
         this.parentCid = parentCid; // 댓글 부모 게시글 식별 아이디
         this.body = body;
@@ -54,6 +57,14 @@ public class Contents {
 
     //-----------------------------------------------------------------------------------------
     // getter setter 단축키는 Alt + Ins
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
+
     public String getCid() {
         return cid;
     }
@@ -178,3 +189,5 @@ public class Contents {
         isEdited = edited;
     }
 }
+
+
