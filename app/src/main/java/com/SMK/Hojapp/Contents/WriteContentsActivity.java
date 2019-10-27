@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
+import com.SMK.Hojapp.Contents.ContentsTypes.ViewType;
 import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.Login.Account;
 import com.SMK.Hojapp.R;

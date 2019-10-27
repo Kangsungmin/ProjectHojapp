@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
-    final String TAG = "ChatActivity";
+        final String TAG = "ChatActivity";
     private DatabaseReference chatDbReference;
     private RecyclerView mRecyclerView;
     public  RecyclerView.Adapter mAdapter;

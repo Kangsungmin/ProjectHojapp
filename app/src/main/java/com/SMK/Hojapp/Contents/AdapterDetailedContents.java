@@ -83,8 +83,14 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
         public ContentsDetailViewHolder(View itemView) {
             super(itemView);
 
-            tvCategory = itemView.findViewById(R.id.categoryView);
+            tvCategory = itemView.findViewById(R.id.detailedContentsCategoryView);
+            tvTitle = itemView.findViewById(R.id.detailedContentsTitleView);
             tvBody = itemView.findViewById(R.id.contentsTextView);
+            tvWriter = itemView.findViewById(R.id.detailedContentsWriterView);
+            tvHitCount = itemView.findViewById(R.id.detailedContentsHitcountView);
+            tvLike = itemView.findViewById(R.id.detailedContentsLikeCountView);
+            tvComments = itemView.findViewById(R.id.detailedContentsCommentCountView);
+            tvTime = itemView.findViewById(R.id.detailedContentsTimeView);
         }
     }
 
@@ -100,7 +106,12 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
         public CommentViewHolder(View itemView) {
             super(itemView);
 
+            tvWriter = itemView.findViewById(R.id.commentWriter);
             tvBody = itemView.findViewById(R.id.commentBody);
+            tvTime = itemView.findViewById(R.id.commentWriteTime);
+            tvLike = itemView.findViewById(R.id.commentLikeText);
+            tvCommentCount = itemView.findViewById(R.id.commentOfCommentCountText);
+
         }
     }
 }

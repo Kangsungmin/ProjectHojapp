@@ -11,20 +11,20 @@
         <TextView
                 android:text="카테고리"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/categoryView"/>
+                android:layout_height="wrap_content" android:id="@+id/detailedContentsCategoryView"/>
         <TextView
                 android:text="제목"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/titleView"
+                android:layout_height="wrap_content" android:id="@+id/detailedContentsTitleView"
                 android:textSize="36sp"/>
         <TextView
                 android:text="yyyy.mm.dd"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/writeTimeView"/>
+                android:layout_height="wrap_content" android:id="@+id/detailedContentsTimeView"/>
         <TextView
                 android:text="작성자 홍길동"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" android:id="@+id/writerView"/>
+                android:layout_height="wrap_content" android:id="@+id/detailedContentsWriterView"/>
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -41,46 +41,46 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                    android:id="@+id/rowContentsHitcountsImage" android:layout_weight="1"
+                    android:id="@+id/detailedContentsHitcountsImage" android:layout_weight="1"
                     android:layout_gravity="center"/>
             <TextView
                     android:text="조회수"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/rowContentsHitcountView"
+                    android:layout_height="match_parent" android:id="@+id/detailedContentsHitcountView"
                     android:layout_weight="1"
                     android:gravity="center|left"/>
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                    android:id="@+id/rowContentsLikeImage" android:layout_weight="1"
+                    android:id="@+id/detailedContentsLikeImage" android:layout_weight="1"
                     android:layout_gravity="center"/>
             <TextView
                     android:text="좋아요"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/rowContentsLikeCountView"
+                    android:layout_height="match_parent" android:id="@+id/detailedContentsLikeCountView"
                     android:layout_weight="1"
                     android:gravity="center|left"/>
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                    android:id="@+id/rowContentsCommentImage" android:layout_weight="1"
+                    android:id="@+id/detailedContentsCommentImage" android:layout_weight="1"
                     android:layout_gravity="center"/>
             <TextView
                     android:text="댓글쓰기"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/rowContentsCommentCountView"
+                    android:id="@+id/detailedContentsCommentCountView"
                     android:layout_weight="1" android:gravity="center|left"/>
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                    android:id="@+id/rowContentsCommentImage2" android:layout_weight="1"
+                    android:id="@+id/detailedContentsCommentImage2" android:layout_weight="1"
                     android:layout_gravity="center"/>
             <TextView
                     android:text="공유하기"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:id="@+id/rowContentsCommentCountView2"
+                    android:id="@+id/detailedContentsShare"
                     android:layout_weight="1" android:gravity="center|left"/>
         </LinearLayout>
     </LinearLayout>
