@@ -41,12 +41,12 @@
             <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                    android:id="@+id/detailedContentsHitcountsImage" android:layout_weight="1"
+                    android:id="@+id/detailedContentsHitCountsImage" android:layout_weight="1"
                     android:layout_gravity="center"/>
             <TextView
                     android:text="조회수"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:id="@+id/detailedContentsHitcountView"
+                    android:layout_height="match_parent" android:id="@+id/detailedContentsHitCountView"
                     android:layout_weight="1"
                     android:gravity="center|left"/>
             <ImageView

@@ -10,52 +10,116 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.Contents.ContentsTypes.ViewType;
+import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.R;
+import com.SMK.Hojapp.TimeManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     String TAG = "AdapterDetailedContents";
+    private DatabaseReference mDatabase;
     Context context;
+    private GlobalData globalData;
     ArrayList<Contents> detailedContentsArrayList = null;
     RequestManager glide;
 
     public AdapterDetailedContents(Context context, ArrayList<Contents> commentArrayList){
         this.context = context;
+        globalData = (GlobalData) context.getApplicationContext();
         this.detailedContentsArrayList = commentArrayList;
         glide = Glide.with(context);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        final View view;
         Context context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(viewType == ViewType.ROW_CONTENTS_DETAIL){
             view = inflater.inflate(R.layout.row_feed_detail, parent, false);
-            return new ContentsDetailViewHolder(view);
-        }
-        else if(viewType == ViewType.COMMENT){
-            view = inflater.inflate(R.layout.row_comment, parent, false);
-            return new CommentViewHolder(view);
-        }
+            final ContentsDetailViewHolder viewHolder = new ContentsDetailViewHolder(view);
+            ImageView likeImage = (ImageView) view.findViewById(R.id.detailedContentsLikeImage);
+            final TextView likeCountView = (TextView) view.findViewById(R.id.detailedContentsLikeCountView);
 
-        return null;
+            // 게시글 좋아요 이벤트 리스너
+            likeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = viewHolder.getAdapterPosition();
+                    Contents contents = detailedContentsArrayList.get(position);
+
+                    if(contents != null) {
+                        boolean am_i_liked = contents.isInLikeUserMap(globalData.getAccount().getUid());
+                        if(am_i_liked == false) {
+                            contents.insertLikeUser(globalData.getAccount().getUid()); // 좋아요 유저 추가
+                            likeCountView.setText( contents.getLikeUserCount() + "" ); // 텍스트 표시
+                            //업데이트 쿼리 수행
+                            updateVarOfContents(contents.getCid(), contents);
+                            //addDatabaseLikeUserOfContents(contents.getCid(), globalData.getAccount().getUid()); // 좋아요 유저 DB 추가
+                        }
+                    }
+                }
+            });
+            return viewHolder;
+        }
+        else {// if(viewType == ViewType.COMMENT){
+            view = inflater.inflate(R.layout.row_comment, parent, false);
+            final CommentViewHolder viewHolder = new CommentViewHolder(view);
+            ImageView likeImage = (ImageView) view.findViewById(R.id.commentLikeImage);
+            final TextView likeCountView = (TextView) view.findViewById(R.id.commentLikeText);
+
+            // 댓글 좋아요 이벤트 리스너
+            likeImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = viewHolder.getAdapterPosition();
+                    Contents contents = detailedContentsArrayList.get(position);
+
+                    if(contents != null) {
+                        contents.insertLikeUser(globalData.getAccount().getUid()); // 좋아요 유저 추가
+                        likeCountView.setText( contents.getLikeUserCount() + "" ); // 텍스트 표시
+                        //업데이트 쿼리 수행
+                        updateVarOfContents(contents.getCid(), contents);
+                    }
+
+                }
+            });
+            return viewHolder;
+        }
+    }
+
+    // 콘텐츠 업데이트 함수
+    private void updateVarOfContents(String cid, Contents getContents) {
+        // contents 하위 항목인 likeUserMap 와 commentList 에 객체를 추가한다.
+        mDatabase.child("contents").child(cid).child("hitCount").setValue( getContents.getHitCount() );
+        mDatabase.child("contents").child(cid).child("likeUserMap").setValue( getContents.getLikeUserMap() );
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if(holder instanceof ContentsDetailViewHolder){
+        if(holder instanceof ContentsDetailViewHolder){ // 게시글일 때
             // 위젯 데이터 세팅
             ((ContentsDetailViewHolder) holder).tvCategory.setText(detailedContentsArrayList.get(position).getCategory());
+            ((ContentsDetailViewHolder) holder).tvTitle.setText(detailedContentsArrayList.get(position).getTitle());
             ((ContentsDetailViewHolder) holder).tvBody.setText(detailedContentsArrayList.get(position).getBody());
+            ((ContentsDetailViewHolder) holder).tvWriter.setText(detailedContentsArrayList.get(position).getwName());
+            ((ContentsDetailViewHolder) holder).tvHitCount.setText( String.valueOf(detailedContentsArrayList.get(position).getHitCount()) );
+            ((ContentsDetailViewHolder) holder).tvLike.setText( String.valueOf(detailedContentsArrayList.get(position).getLikeUserCount()) );
+            ((ContentsDetailViewHolder) holder).tvComments.setText( String.valueOf(detailedContentsArrayList.get(position).getCommentsCount()) );
+            ((ContentsDetailViewHolder) holder).tvTime.setText( TimeManager.getFormedDate(detailedContentsArrayList.get(position).getCreateTime()) );
         }
-        else if(holder instanceof CommentViewHolder) {
+        else if(holder instanceof CommentViewHolder) { // 댓글일 때
             // 위젯 데이터 세팅
             ((CommentViewHolder) holder).tvBody.setText(detailedContentsArrayList.get(position).getBody());
+            ((CommentViewHolder) holder).tvTime.setText( TimeManager.getFormedDate(detailedContentsArrayList.get(position).getCreateTime()) );
+            ((CommentViewHolder) holder).tvLike.setText( String.valueOf(detailedContentsArrayList.get(position).getLikeUserCount()) );
+            ((CommentViewHolder) holder).tvCommentCount.setText( String.valueOf(detailedContentsArrayList.get(position).getCommentsCount()) );
         }
     }
 
@@ -87,7 +151,7 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
             tvTitle = itemView.findViewById(R.id.detailedContentsTitleView);
             tvBody = itemView.findViewById(R.id.contentsTextView);
             tvWriter = itemView.findViewById(R.id.detailedContentsWriterView);
-            tvHitCount = itemView.findViewById(R.id.detailedContentsHitcountView);
+            tvHitCount = itemView.findViewById(R.id.detailedContentsHitCountView);
             tvLike = itemView.findViewById(R.id.detailedContentsLikeCountView);
             tvComments = itemView.findViewById(R.id.detailedContentsCommentCountView);
             tvTime = itemView.findViewById(R.id.detailedContentsTimeView);
@@ -111,7 +175,6 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
             tvTime = itemView.findViewById(R.id.commentWriteTime);
             tvLike = itemView.findViewById(R.id.commentLikeText);
             tvCommentCount = itemView.findViewById(R.id.commentOfCommentCountText);
-
         }
     }
 }

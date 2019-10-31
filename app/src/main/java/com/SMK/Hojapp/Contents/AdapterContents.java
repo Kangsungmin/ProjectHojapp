@@ -11,14 +11,13 @@ import android.widget.TextView;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.R;
+import com.SMK.Hojapp.TimeManager;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /*
  * 뉴스피드에 적용되는 콘텐츠 어댑터
@@ -52,22 +51,26 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
 
         //==========좋아요 버튼==========//
         ImageView likeImage = (ImageView) view.findViewById(R.id.rowContentsLikeImage);
-        final TextView likeCountView = (TextView) view.findViewById(R.id.rowContentsLikeCountView );
+        final TextView likeCountView = (TextView) view.findViewById(R.id.rowContentsLikeCountView);
 
         likeImage.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // your code here
                 int position = viewHolder.getAdapterPosition();
-                final Contents contents = contentsArrayList.get(position);
+                Contents contents = contentsArrayList.get(position);
 
-                boolean am_i_liked = contents.isInLikeUserMap(globalData.getAccount().getUid());
-                if(am_i_liked == false) {
-                    contents.insertLikeUser(globalData.getAccount().getUid()); // 좋아요 유저 추가
-                    likeCountView.setText( contents.getLikeUserCount() + "" ); // 텍스트 표시
+                if(contents != null)
+                {
+                    boolean am_i_liked = contents.isInLikeUserMap(globalData.getAccount().getUid());
+                    if(am_i_liked == false) {
+                        contents.insertLikeUser(globalData.getAccount().getUid()); // 좋아요 유저 추가
+                        likeCountView.setText( contents.getLikeUserCount() + "" ); // 텍스트 표시
 
-                    //업데이트 쿼리 수행
-                    updateVarOfContents(contents.getCid(), contents);
-                    //addDatabaseLikeUserOfContents(contents.getCid(), globalData.getAccount().getUid()); // 좋아요 유저 DB 추가
+
+                        //업데이트 쿼리 수행
+                        updateVarOfContents(contents.getCid(), contents);
+                        //addDatabaseLikeUserOfContents(contents.getCid(), globalData.getAccount().getUid()); // 좋아요 유저 DB 추가
+                    }
                 }
             }
         });
@@ -79,12 +82,14 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
                 //액티비티 전환에 필요한 정보들을 넘겨준다.
                 Intent i = new Intent(context, ContentsDetailActivity.class);
                 final int position = viewHolder.getAdapterPosition();
-                final Contents contents = contentsArrayList.get(position);
-
-                //조회수 1증가
-                contents.setHitCount(contents.getHitCount() + 1);
-                //업데이트 쿼리 수행
-                updateVarOfContents(contents.getCid(), contents);
+                Contents contents = contentsArrayList.get(position);
+                if(contents != null)
+                {
+                    //조회수 1증가
+                    contents.setHitCount(contents.getHitCount() + 1);
+                    //업데이트 쿼리 수행
+                    updateVarOfContents(contents.getCid(), contents);
+                }
 
                 i.putExtra("CONTENTS_ID", contents.getCid() );
                 i.putExtra("CATEGORY", contents.getCategory() );
@@ -94,7 +99,7 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
                 i.putExtra("TIME", contents.getCreateTime() + "");
                 i.putExtra("BODY", contents.getBody() );
                 i.putExtra("HIT_COUNT", contents.getHitCount() + "" );
-                i.putExtra("LIKE_COUNT", contents.getLikeUserCount() + "" );
+
 
                 context.startActivity(i);
             }
@@ -121,7 +126,7 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
         holder.tvHitCount.setText(String.valueOf( contents.getHitCount() ));
         holder.tvLike.setText(String.valueOf( contents.getLikeUserCount() ));
         holder.tvComments.setText(String.valueOf( contents.getCommentsCount() ));
-        holder.tvTime.setText( getFormedDate(contents.getCreateTime()) ); // 작성 시간
+        holder.tvTime.setText( TimeManager.getFormedDate(contents.getCreateTime()) ); // 작성 시간
 
         if(contents.getBodyPic() == 0) {
             holder.imageViewPostPic.setVisibility(View.GONE);
@@ -157,12 +162,4 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
         }
     }
 
-    public String getFormedDate(long rawDate) {
-        //currentTimeMillis를 월/일 포맷으로 변환
-        //TODO:1년 이내는 년도 표시 하지 않음. 7일 이내는 n일 전으로 표시.
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-        Date resultDate = new Date(rawDate);
-        return sdf.format(resultDate);
-    }
 }
