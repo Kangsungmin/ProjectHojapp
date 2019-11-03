@@ -56,7 +56,14 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
 
                     if(contents != null) {
                         boolean am_i_liked = contents.isInLikeUserMap(globalData.getAccount().getUid());
-                        if(am_i_liked == false) {
+                        if(am_i_liked == true) {
+                            contents.deleteLikeUser(globalData.getAccount().getUid()); // 좋아요 유저 추가
+                            likeCountView.setText( contents.getLikeUserCount() + "" ); // 텍스트 표시
+                            //업데이트 쿼리 수행
+                            updateVarOfContents(contents.getCid(), contents);
+                            //addDatabaseLikeUserOfContents(contents.getCid(), globalData.getAccount().getUid()); // 좋아요 유저 DB 추가
+                        }
+                        else {
                             contents.insertLikeUser(globalData.getAccount().getUid()); // 좋아요 유저 추가
                             likeCountView.setText( contents.getLikeUserCount() + "" ); // 텍스트 표시
                             //업데이트 쿼리 수행

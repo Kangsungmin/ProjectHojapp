@@ -141,6 +141,10 @@ public class Contents {
         this.likeUserMap.put(user, System.currentTimeMillis());
     }
 
+    public void deleteLikeUser(String user) {
+        this.likeUserMap.remove(user);
+    }
+
     //해당 유저가 맵에 존재하는지 확인
     public Boolean isInLikeUserMap(String user) {
         if(this.likeUserMap != null) {
