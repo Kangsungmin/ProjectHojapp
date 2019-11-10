@@ -17,7 +17,9 @@ import com.bumptech.glide.RequestManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /*
  * 뉴스피드에 적용되는 콘텐츠 어댑터
@@ -100,7 +102,6 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
                 i.putExtra("BODY", contents.getBody() );
                 i.putExtra("HIT_COUNT", contents.getHitCount() + "" );
 
-
                 context.startActivity(i);
             }
         });
@@ -160,6 +161,15 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
             tvComments = (TextView) itemView.findViewById(R.id.rowContentsCommentCountView);
             tvWriter = (TextView) itemView.findViewById(R.id.rowContentsWriterView);
         }
+    }
+
+    public String getFormedDate(long rawDate) {
+        //currentTimeMillis를 월/일 포맷으로 변환
+        //TODO:1년 이내는 년도 표시 하지 않음. 7일 이내는 n일 전으로 표시.
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
+        Date resultDate = new Date(rawDate);
+        return sdf.format(resultDate);
     }
 
 }

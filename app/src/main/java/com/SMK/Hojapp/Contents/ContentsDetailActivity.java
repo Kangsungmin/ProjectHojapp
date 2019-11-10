@@ -55,7 +55,6 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
         enterText.setOnClickListener(this);
 
         Intent intent = getIntent(); /*데이터 수신*/
-
         nowContent_ID = intent.getExtras().getString("CONTENTS_ID");
 
         recyclerView = (RecyclerView) findViewById(R.id.commentRecyclerView);
@@ -69,13 +68,16 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
 
         // 상단 게시글을 ContentsDetailDataArrayList 에 추가한다.
         setContentsDetailData(intent);
-
         getCommentContentsData();
     }
 
-    // 이전페이지에서 받은 정보 상세페이지에 표시
+    /*
+    DB의 해당 콘텐츠(게시글)에 대한 업데이트를 받아서 데이터를 갱신한다.
+    TODO: 콘텐츠 갱신 버그(좋아요 혹은 좋아요 취소 후 새로고침시 게시글이 두 개가 된다.)
+          원인은 DB갱신시 이벤트 리스너 setContentsDetailData getCommentContentsData 가 두개 모두 호출 된기 때문.
+     */
     private void setContentsDetailData(Intent intent) {
-        ValueEventListener preEventListener = new ValueEventListener() {
+        ValueEventListener contentsPreEventListener = new ValueEventListener() {
             // onDataChange() :
             // 리스너 : ValueEventListener
             // 경로의 전체 내용에 대한 변경 사항을 읽고 수신 대기합니다.
@@ -84,7 +86,7 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
             // 데이터가 없으면 스냅샷은 exists() 호출 시 false 를 반환하고, getValue() 호출 시 null을 반환
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                populateRecyclerView(dataSnapshot);
+                populateContentsRecyclerView(dataSnapshot);
             }
 
             @Override
@@ -95,17 +97,19 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
         };
         // 현재 콘텐츠와 같은 게시물만 받아온다.
         Query query = dbReference.orderByChild("cid").equalTo( intent.getExtras().getString("CONTENTS_ID") );
-        query.addValueEventListener(preEventListener);
+        query.addValueEventListener(contentsPreEventListener);
 
         adapterDetailedContents.notifyDataSetChanged();     // [어댑터 변경 알림]
     }
 
-    // 댓글 정보가져오는 함수
+    /*
+    DB의 해당 [콘텐츠의 댓글]에 대한 업데이트를 받아서 데이터를 갱신한다.
+    */
     private void getCommentContentsData() {
-        ValueEventListener preEventListener = new ValueEventListener() {
+        ValueEventListener commentPreEventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                populateRecyclerView(dataSnapshot);
+                populateCommentRecyclerView(dataSnapshot);
             }
 
             @Override
@@ -117,15 +121,30 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
         // 참고 : https://stackoverflow.com/questions/40471284/firebase-search-by-child-value
         // 현재 게시글의 cid의 하위에 있는 댓글만 가져온다.
         Query query = dbReference.orderByChild("parentCid").equalTo(nowContent_ID); // 쿼리 생성
-        query.addValueEventListener(preEventListener);
+        query.addValueEventListener(commentPreEventListener);
     }
 
-    private void populateRecyclerView(@NonNull DataSnapshot dataSnapshot) {
+    // 게시글 UI 갱신
+    private void populateContentsRecyclerView(@NonNull DataSnapshot dataSnapshot) {
+        // FireBase 의 데이터베이스에서 뉴스피드데이터를 받아온다.
+        // 댓글을 제외한 게시글(0번째 리스트 원소)을 삭제후 다시 추가한다.
+        clearContents();
+
+        for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+            Contents val = snapshot.getValue(Contents.class);
+            if(val != null) {
+                ContentsDetailDataArrayList.add(0, val);
+            }
+        }
+        adapterDetailedContents.notifyDataSetChanged();     // [어댑터 변경 알림]
+    }
+
+    // 댓글 UI 갱신
+    private void populateCommentRecyclerView(@NonNull DataSnapshot dataSnapshot) {
         //Firebase의 데이터베이스에서 뉴스피드데이터를 받아온다.
         //1. 기존 리스트 초기화
         //2. 스냅샷 객체화 & 리스트 추가
         //3. 어댑터 갱신
-
         // 게시글을 제외한 댓글만 삭제한다.
         clearComments();
 
@@ -136,6 +155,12 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
             }
         }
         adapterDetailedContents.notifyDataSetChanged();     // [어댑터 변경 알림]
+    }
+
+    private void clearContents(){
+        if(ContentsDetailDataArrayList.size() > 0) {
+            Contents detailedContents = ContentsDetailDataArrayList.remove(0);
+        }
     }
 
     private void clearComments() {
