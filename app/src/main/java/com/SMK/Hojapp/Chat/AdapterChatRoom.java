@@ -8,12 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.SMK.Hojapp.Contents.ContentsDetailActivity;
-import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.R;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by KPlo on 2018. 10. 28..
@@ -81,7 +78,7 @@ public class AdapterChatRoom extends RecyclerView.Adapter<AdapterChatRoom.ChatRo
         // - replace the contents of the view with that element
         ChatRoomData chatRoom = rommDataList.get(position);
 
-        holder.TextView_members.setText(chatRoom.getMembers());
+        holder.TextView_members.setText(chatRoom.getMembers().toString());
         holder.TextView_last_msg.setText(chatRoom.getLastMsg());
     }
 

@@ -1,11 +1,12 @@
 package com.SMK.Hojapp.Chat;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 // 방에 대한 정보는 {대화 상대닉네임들, 가장 마지막 대화, 마지막 갱신 시간}
 public class ChatRoomData {
     private String lastMsg = "";    // 마지막으로 주고 받은 대화
-    private String members = "";    // 대화 상대닉네임들
+    private ArrayList<String> members = new ArrayList<>();    // 대화 상대닉네임들
     private  String roomID = "";
     private long updateTime;        // 갱신 시간
 
@@ -13,7 +14,7 @@ public class ChatRoomData {
 
     }
 
-    public ChatRoomData(String lastMsg, String members, long updateTime) {
+    public ChatRoomData(String lastMsg, ArrayList<String> members, long updateTime) {
         roomID = UUID.randomUUID().toString(); // 랜덤 식별 ID 생성
         this.lastMsg = lastMsg;
         this.members = members;
@@ -28,8 +29,8 @@ public class ChatRoomData {
         this.lastMsg = lastMsg;
     }
 
-    public void setMembers(String members) {
-        this.members = members;
+    public void addMember(String member) {
+        this.members.add(member);
     }
 
     public void setUpdateTime(long updateTime) {
@@ -44,7 +45,7 @@ public class ChatRoomData {
         return lastMsg;
     }
 
-    public String getMembers() {
+    public ArrayList<String> getMembers() {
         return members;
     }
 

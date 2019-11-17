@@ -73,8 +73,6 @@ public class ContentsDetailActivity extends AppCompatActivity implements SwipeRe
 
     /*
     DB의 해당 콘텐츠(게시글)에 대한 업데이트를 받아서 데이터를 갱신한다.
-    TODO: 콘텐츠 갱신 버그(좋아요 혹은 좋아요 취소 후 새로고침시 게시글이 두 개가 된다.)
-          원인은 DB갱신시 이벤트 리스너 setContentsDetailData getCommentContentsData 가 두개 모두 호출 된기 때문.
      */
     private void setContentsDetailData(Intent intent) {
         ValueEventListener contentsPreEventListener = new ValueEventListener() {

@@ -42,9 +42,13 @@ public class ChatRoomListActivity extends AppCompatActivity {
         Button_make_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChatRoomData chatRoom = new ChatRoomData("대화를 시작하세요.", "상대방 ID", System.currentTimeMillis());
+                /*
+                ArrayList<String> newMember = new ArrayList<>();
+                newMember.add("새로운 대화상대");
+                ChatRoomData chatRoom = new ChatRoomData("대화를 시작하세요.", newMember, System.currentTimeMillis());
                 // 채팅방 DB 추가
                 myRef.child("message_room_list").child(chatRoom.getRoomID()).setValue(chatRoom);
+                */
             }
         });
 

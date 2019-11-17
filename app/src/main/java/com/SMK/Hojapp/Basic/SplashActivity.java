@@ -1,9 +1,12 @@
 package com.SMK.Hojapp.Basic;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import com.SMK.Hojapp.Login.LoginActivity;
 import com.SMK.Hojapp.R;
 
@@ -20,5 +23,14 @@ public class SplashActivity extends AppCompatActivity {
                 finish();
             } }, 3000);
 
+    }
+
+    public static void restartApp(Context context) {
+        PackageManager packageManager = context.getPackageManager();
+        Intent intent = packageManager.getLaunchIntentForPackage(context.getPackageName());
+        ComponentName componentName = intent.getComponent();
+        Intent mainIntent = Intent.makeRestartActivityTask(componentName);
+        context.startActivity(mainIntent);
+        System.exit(0);
     }
 }

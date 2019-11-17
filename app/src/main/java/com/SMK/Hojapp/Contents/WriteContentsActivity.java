@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
+import android.widget.Toast;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.Contents.ContentsTypes.ViewType;
 import com.SMK.Hojapp.GlobalData;
@@ -46,6 +47,25 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         int i = view.getId();
         if (i == R.id.completeButton) {
             if(globalData != null) {
+                if(contentsCategoryButton.getText().toString().equals("카테고리"))
+                {
+                    // 카테고리를 선택하지 않았을 때
+                    Toast.makeText(this, "카테고리를 선택해 주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(contentsTitleInput.getText().toString().equals(""))
+                {
+                    // 제목이 아무 것도 없을 때
+                    Toast.makeText(this, "제목을 작성해 주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(contentsBodyInput.getText().toString().equals(""))
+                {
+                    // 내용이 아무 것도 없을 때
+                    Toast.makeText(this, "내용을 작성해 주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 writeNewContents(contentsCategoryButton.getText().toString(), globalData.getAccount(), contentsTitleInput.getText().toString(), contentsBodyInput.getText().toString());
             }
         }

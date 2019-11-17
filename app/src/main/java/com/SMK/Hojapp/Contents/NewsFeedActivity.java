@@ -13,6 +13,7 @@ import android.view.View;
 import com.SMK.Hojapp.Chat.ChatRoomListActivity;
 import com.SMK.Hojapp.Contents.Fragment.Market;
 import com.SMK.Hojapp.Contents.Fragment.TimeLine;
+import com.SMK.Hojapp.Profile.ProfileActivity;
 import com.SMK.Hojapp.R;
 
 import java.util.ArrayList;
@@ -35,6 +36,7 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
         //database = FirebaseDatabase.getInstance();
         findViewById(R.id.writeButton).setOnClickListener(this);
         findViewById(R.id.chatButton).setOnClickListener(this);
+        findViewById(R.id.profileButton).setOnClickListener(this);
 
         // [데이터 초기화 시작]
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -118,6 +120,11 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
             case R.id.chatButton:
             {
                 Intent intent = new Intent(NewsFeedActivity.this, ChatRoomListActivity.class); startActivity(intent);
+                break;
+            }
+            case R.id.profileButton:
+            {
+                Intent intent = new Intent(NewsFeedActivity.this, ProfileActivity.class); startActivity(intent);
                 break;
             }
         }

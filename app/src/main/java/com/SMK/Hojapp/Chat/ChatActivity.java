@@ -1,19 +1,16 @@
 package com.SMK.Hojapp.Chat;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.R;
 import com.google.firebase.database.*;
@@ -83,45 +80,6 @@ public class ChatActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         // 메세지 갱신함수
         getChatData();
-
-        // 현재 Room ID 와 일치한 메세지 쿼리를 수행한다.
-        /*
-        myRef.child("message").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Log.d("CHATCHAT", dataSnapshot.getValue().toString());
-                ChatData chat = dataSnapshot.getValue(ChatData.class);
-                ((AdapterChat) mAdapter).addChat(chat);
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-        */
-        //1. recyclerView - 반복
-        //2. 디비 내용을 넣는다
-        //3. 상대방폰에 채팅 내용이 보임 - get
-
-        //1-1. recyclerview - chat data
-        //1. message, nickname - Data Transfer Object
-
     }
 
 
