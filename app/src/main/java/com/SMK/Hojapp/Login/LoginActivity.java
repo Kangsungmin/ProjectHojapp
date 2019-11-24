@@ -1,9 +1,9 @@
 package com.SMK.Hojapp.Login;
 
-import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -17,11 +17,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.*;
+import com.google.firebase.database.*;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private String TAG = "LoginActivity";
@@ -30,6 +27,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     GlobalData globalData;
     // [START declare_auth]
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
     private GoogleSignInClient mGoogleSignInClient;
 
@@ -55,6 +53,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         // [END initialize_auth]
+        // Initialize DatabaseReference
+        mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     private void SignIn() {
@@ -97,11 +97,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                             FirebaseUser user = mAuth.getCurrentUser();
                             // [Set Global Data]
                             long nowTime = System.currentTimeMillis();
-                            Account newAccount = new Account(user.getUid(), nowTime);
-                            globalData.setAccount(newAccount);
 
-                            // [Start News Feed activity]
-                            startNewsFeedActivity();
+                            // UID 를 기준으로 DB에 가입 여부를 확인한다.
+                            checkMember(user.getUid(), nowTime);
+
                             //updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -150,8 +149,40 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
+    protected void checkMember(final String UID, final long time)
+    {
+        mDatabase.child("accounts").child(UID).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists() == true)
+                {
+                    // 이미 계정이 존재할 경우
+                    startNewsFeedActivity();
+                }
+                else
+                {
+                    // 계정이 없을 경우 : 닉네임 생성 액티비티 실행
+                    Account newAccount = new Account(UID, time);
+                    globalData.setAccount(newAccount);
+                    // [아이디 생성 액티비티 실행]
+                    startJoinMemberActivity();
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     protected void startNewsFeedActivity() {
         Intent i = new Intent(LoginActivity.this, NewsFeedActivity.class); startActivity(i);
+        finish();
+    }
+
+    protected void startJoinMemberActivity() {
+        Intent i = new Intent(LoginActivity.this, JoinMemberActivity.class); startActivity(i);
         finish();
     }
 }

@@ -9,36 +9,29 @@ import com.SMK.Hojapp.R;
 
 public class JoinMemberActivity extends AppCompatActivity {
     private final String TAG = "JoinMemberActivity";
-    EditText m_etId, m_etPw, m_etPwChk;
-    String m_sId, m_sPw, m_sPwChk;
+    EditText m_etId;
+    String m_sId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_join_member);
 
-        m_etId = (EditText) findViewById(R.id.editEmailText);
-        m_etPw = (EditText) findViewById(R.id.editPwText);
-        m_etPwChk = (EditText) findViewById(R.id.editPwchkText);
+        m_etId = (EditText) findViewById(R.id.nickNameEditText);
     }
 
 
-    public void OnJoin(View view)
+    public void onJoin(View view)
     {
         m_sId = m_etId.getText().toString();
-        m_sPw = m_etPw.getText().toString();
-        m_sPwChk = m_etPwChk.getText().toString();
-
-        if(m_sPw.equals(m_sPwChk))
-        {
-            /*패스워드 일치*/
-
-        }
-        else
-        {
-            /*패스워드 불일치*/
-        }
+        // 닉네임 유효성 검사
     }
 
+    boolean isValidNickName(String nick)
+    {
+        // 닉네임 중복, 특수문자 유효성 결과 리턴
 
+
+        return true;
+    }
 }

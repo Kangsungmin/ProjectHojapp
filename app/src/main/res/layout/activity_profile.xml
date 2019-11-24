@@ -21,7 +21,7 @@
                 <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                        android:id="@+id/commentCameraImage" android:layout_weight="1"
+                        android:id="@+id/backImage" android:layout_weight="1"
                         android:layout_gravity="left"/>
                 <TextView
                         android:text="뒤로가기"
@@ -59,7 +59,8 @@
                     <TextView
                             android:text="TextView"
                             android:layout_width="wrap_content"
-                            android:layout_height="match_parent" android:id="@+id/profileName" android:layout_weight="1"/>
+                            android:layout_height="match_parent" android:id="@+id/profileName" android:layout_weight="1"
+                            android:textSize="24dp"/>
                     <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
