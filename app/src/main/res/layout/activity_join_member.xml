@@ -64,5 +64,6 @@
             android:layout_marginStart="8dp" android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toTopOf="@+id/bottomGuideLine" android:layout_marginTop="8dp"
             app:layout_constraintTop_toTopOf="@+id/guideline" app:layout_constraintHorizontal_bias="0.495"
-            app:layout_constraintVertical_bias="0.799"/>
+            app:layout_constraintVertical_bias="0.799"
+            android:onClick="onJoin"/>
 </android.support.constraint.ConstraintLayout>
