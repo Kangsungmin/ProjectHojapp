@@ -15,4 +15,9 @@ public class GlobalData extends Application {
     public Account getAccount() {
         return nowAccount;
     }
+
+    public void setAccountNick(String nick)
+    {
+        nowAccount.setName(nick);
+    }
 }

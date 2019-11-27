@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) { // 로그인 되어있다면.
             long nowTime = System.currentTimeMillis();
-            Account newAccount = new Account(currentUser.getUid(), nowTime);
+            Account newAccount = new Account(currentUser.getUid(), currentUser.getDisplayName(), nowTime);
             globalData.setAccount(newAccount);
 
             startNewsFeedActivity();
@@ -151,18 +151,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     protected void checkMember(final String UID, final long time)
     {
-        mDatabase.child("accounts").child(UID).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("accounts").child(UID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists() == true)
                 {
                     // 이미 계정이 존재할 경우
-                    startNewsFeedActivity();
+                    Account getAccount = dataSnapshot.getValue(Account.class);
+                    if(getAccount != null)
+                    {
+                        globalData.setAccount(getAccount);
+                        startNewsFeedActivity();
+                    }
                 }
                 else
                 {
                     // 계정이 없을 경우 : 닉네임 생성 액티비티 실행
-                    Account newAccount = new Account(UID, time);
+                    Account newAccount = new Account(UID, "", time);
                     globalData.setAccount(newAccount);
                     // [아이디 생성 액티비티 실행]
                     startJoinMemberActivity();

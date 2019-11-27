@@ -13,11 +13,16 @@ public class Account {
 
     private Random rnd;
 
-    public Account(String uid, long lastLoginTime) {
+    public Account()
+    {
+
+    }
+
+    public Account(String uid, String nickName,long lastLoginTime) {
         rnd = new Random();
 
         this.uid = uid;
-        this.name = makeRandomName();
+        this.name = nickName;
         this.lastLoginTime = lastLoginTime;
     }
 
