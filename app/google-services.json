@@ -1,50 +1,34 @@
 {
   "project_info": {
-    "project_number": "597141951946",
-    "firebase_url": "https://hojapp-243009.firebaseio.com",
-    "project_id": "hojapp-243009",
-    "storage_bucket": "hojapp-243009.appspot.com"
+    "project_number": "408315894342",
+    "firebase_url": "https://hojunow-alpha.firebaseio.com",
+    "project_id": "hojunow-alpha",
+    "storage_bucket": "hojunow-alpha.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:597141951946:android:eb4fa7905d305581",
+        "mobilesdk_app_id": "1:408315894342:android:a01016c10677ab1d93c847",
         "android_client_info": {
           "package_name": "com.SMK.Hojapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "597141951946-1eoevhv7ivrl80qfkuhd6hkjq3tlolu8.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.SMK.Hojapp",
-            "certificate_hash": "fb89738a9c555efa5a97ee5b9f6a67097d3effbc"
-          }
-        },
-        {
-          "client_id": "597141951946-5eju9bf35teklhi7nt2vubniu4sfe4oh.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.SMK.Hojapp",
-            "certificate_hash": "b86c26a270629f25c69002be0c4a1b015daaaae0"
-          }
-        },
-        {
-          "client_id": "597141951946-e7i1i2vmdukvc0vceme5u9mpvde5v62n.apps.googleusercontent.com",
+          "client_id": "408315894342-ujhttiivlrf6j7eokdihj6l0iru6117e.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBiEtiaI8w1y3vGcUkGFYQYvAYDr9Fuoys"
+          "current_key": "AIzaSyDJMxY8a-mnYXglIR4e2CHs7JnaG37d6Pg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "597141951946-e7i1i2vmdukvc0vceme5u9mpvde5v62n.apps.googleusercontent.com",
+              "client_id": "408315894342-ujhttiivlrf6j7eokdihj6l0iru6117e.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
