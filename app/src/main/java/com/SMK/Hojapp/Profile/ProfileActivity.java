@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfileActivity extends AppCompatActivity {
     private GlobalData globalData;
-    ImageView logoutImage, backImage;
+    ImageView logoutImage, backImage , profileEditImage;
     TextView profileName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +37,14 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        profileEditImage = findViewById(R.id.profileEditImage);
+        profileEditImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 프로필 수정 액티비티를 실행한다.
             }
         });
     }

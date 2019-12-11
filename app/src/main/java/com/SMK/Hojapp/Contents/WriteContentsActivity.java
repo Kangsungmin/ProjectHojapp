@@ -1,13 +1,13 @@
 package com.SMK.Hojapp.Contents;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.Toast;
+import android.widget.*;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.Contents.ContentsTypes.ViewType;
 import com.SMK.Hojapp.GlobalData;
@@ -19,9 +19,16 @@ import com.google.firebase.database.FirebaseDatabase;
 public class WriteContentsActivity extends AppCompatActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
     private DatabaseReference mDatabase;
     private Button contentsCategoryButton;
+    private Button imageUploadButton;
     private TextInputEditText contentsTitleInput;
     private TextInputEditText contentsBodyInput;
     private GlobalData globalData;
+    private ProgressBar progressBar;
+    private ImageView imageView;
+
+    private Uri imgageUri;
+
+    private int PICK_IMAGE_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,8 +40,10 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         findViewById(R.id.cancelButton).setOnClickListener(this);
 
         contentsCategoryButton = (Button) findViewById(R.id.categoryButton);
+        imageUploadButton = findViewById(R.id.imageUploadButton);
         contentsTitleInput = (TextInputEditText) findViewById(R.id.contentsTitle);
         contentsBodyInput = (TextInputEditText) findViewById(R.id.contentsBody);
+
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
@@ -72,6 +81,10 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         else if(i == R.id.cancelButton) {
             finish();
         }
+        //이미지 업로드
+        else if(i == R.id.imageUploadButton){
+            openFileChooser();
+        }
     }
 
     private void writeNewContents(String categoryName, Account user, String title, String body) {
@@ -94,5 +107,23 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
     public boolean onMenuItemClick(MenuItem menuItem) { // 팝업메뉴의 아이템을 클릭 시.
         contentsCategoryButton.setText(menuItem.getTitle());
         return false;
+    }
+
+    private void openFileChooser(){
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+            imgageUri = data.getData();
+
+            Picasso.with(this).load(imgageUri).into(imageView);
+        }
     }
 }

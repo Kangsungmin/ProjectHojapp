@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "408315894342",
-    "firebase_url": "https://hojunow-alpha.firebaseio.com",
-    "project_id": "hojunow-alpha",
-    "storage_bucket": "hojunow-alpha.appspot.com"
+    "project_number": "956256570643",
+    "firebase_url": "https://hojunow-alpha-260911.firebaseio.com",
+    "project_id": "hojunow-alpha-260911",
+    "storage_bucket": "hojunow-alpha-260911.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:408315894342:android:a01016c10677ab1d93c847",
+        "mobilesdk_app_id": "1:956256570643:android:0d24eb01916bac51bddee6",
         "android_client_info": {
           "package_name": "com.SMK.Hojapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "408315894342-ujhttiivlrf6j7eokdihj6l0iru6117e.apps.googleusercontent.com",
+          "client_id": "956256570643-ho0t6ch7lutiii39mhq233ennmi96mmm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SMK.Hojapp",
+            "certificate_hash": "b86c26a270629f25c69002be0c4a1b015daaaae0"
+          }
+        },
+        {
+          "client_id": "956256570643-tl9earfrtkgbml9shttvrdbssnbdhkoo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDJMxY8a-mnYXglIR4e2CHs7JnaG37d6Pg"
+          "current_key": "AIzaSyBMiRnu3dI725XPltMvX9i5mVYE0L7g-Fo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "408315894342-ujhttiivlrf6j7eokdihj6l0iru6117e.apps.googleusercontent.com",
+              "client_id": "956256570643-tl9earfrtkgbml9shttvrdbssnbdhkoo.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
