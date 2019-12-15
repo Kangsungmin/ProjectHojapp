@@ -1,21 +1,37 @@
 {
   "project_info": {
-    "project_number": "956256570643",
-    "firebase_url": "https://hojunow-alpha-260911.firebaseio.com",
-    "project_id": "hojunow-alpha-260911",
-    "storage_bucket": "hojunow-alpha-260911.appspot.com"
+    "project_number": "597141951946",
+    "firebase_url": "https://hojapp-243009.firebaseio.com",
+    "project_id": "hojapp-243009",
+    "storage_bucket": "hojapp-243009.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:956256570643:android:0d24eb01916bac51bddee6",
+        "mobilesdk_app_id": "1:597141951946:android:eb4fa7905d305581",
         "android_client_info": {
           "package_name": "com.SMK.Hojapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "956256570643-ho0t6ch7lutiii39mhq233ennmi96mmm.apps.googleusercontent.com",
+          "client_id": "597141951946-1je7effuftohogvsdue3cgg1ne6pi6dh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SMK.Hojapp",
+            "certificate_hash": "febceb36ee1f12c89e0c4ec8e9bfb3b58817d9ed"
+          }
+        },
+        {
+          "client_id": "597141951946-1eoevhv7ivrl80qfkuhd6hkjq3tlolu8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.SMK.Hojapp",
+            "certificate_hash": "fb89738a9c555efa5a97ee5b9f6a67097d3effbc"
+          }
+        },
+        {
+          "client_id": "597141951946-5eju9bf35teklhi7nt2vubniu4sfe4oh.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.SMK.Hojapp",
@@ -23,20 +39,20 @@
           }
         },
         {
-          "client_id": "956256570643-tl9earfrtkgbml9shttvrdbssnbdhkoo.apps.googleusercontent.com",
+          "client_id": "597141951946-e7i1i2vmdukvc0vceme5u9mpvde5v62n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBMiRnu3dI725XPltMvX9i5mVYE0L7g-Fo"
+          "current_key": "AIzaSyBiEtiaI8w1y3vGcUkGFYQYvAYDr9Fuoys"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "956256570643-tl9earfrtkgbml9shttvrdbssnbdhkoo.apps.googleusercontent.com",
+              "client_id": "597141951946-e7i1i2vmdukvc0vceme5u9mpvde5v62n.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
