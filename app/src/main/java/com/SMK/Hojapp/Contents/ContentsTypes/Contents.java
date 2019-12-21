@@ -1,5 +1,7 @@
 package com.SMK.Hojapp.Contents.ContentsTypes;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -12,7 +14,8 @@ public class Contents {
     String parentCid;    // 댓글일 경우 : 부모 게시글 id
     String title;
     String body;
-    int bodyPic;
+    String bodyPicName;
+    String bodyPicUrl;
     String wUid;         // 작성자 uid
     String wName;        // 작성자 name
     int hitCount;        // 조회수
@@ -105,12 +108,21 @@ public class Contents {
         this.body = body;
     }
 
-    public int getBodyPic() {
-        return bodyPic;
+    public void setBodyPicName(String name){
+        bodyPicName = name;
     }
 
-    public void setBodyPic(int bodyPic) {
-        this.bodyPic = bodyPic;
+    public String getBodyPicName(){
+        return bodyPicName;
+    }
+
+    public String getBodyPicUri()
+    {
+        return bodyPicUrl;
+    }
+
+    public void setBodyPicUri(String url) {
+        this.bodyPicUrl = url;
     }
 
     public String getwUid() {

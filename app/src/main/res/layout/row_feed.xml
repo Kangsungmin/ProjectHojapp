@@ -28,15 +28,15 @@
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+                <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star_big_on"
+                        android:id="@+id/rowContentsPostImageView" android:layout_weight="1"/>
                 <TextView
                         android:text="앱은 전 세계적으로 얼마나 빠르게 성장했을까요?사용자들은 특정 앱을 몇 번이나 실행했을까요? 가장 높은 유지율을 보이는 업종은 무엇일까요? 2019 애드저스트 글로벌 앱 트렌드 리포트에서 확인해보세요."
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:id="@+id/rowContentsBodyView"
                         android:layout_weight="1"/>
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star_big_on"
-                        android:id="@+id/rowContentsPostImageView" android:layout_weight="1"/>
             </LinearLayout>
             <TextView
                     android:text="글쓴이 이름"

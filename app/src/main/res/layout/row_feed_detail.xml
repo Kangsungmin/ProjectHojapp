@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
+                xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white" android:id="@+id/rowContentsLayout">
     <LinearLayout
@@ -22,6 +22,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/detailedContentsTimeView"
                 android:padding="10dp"/>
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars[0]"
+                android:id="@+id/contentsImageView"/>
         <TextView
                 android:text="작성자 홍길동"
                 android:layout_width="match_parent"

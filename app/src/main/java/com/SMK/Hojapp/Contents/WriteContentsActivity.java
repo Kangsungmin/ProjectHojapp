@@ -20,10 +20,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
+import com.google.firebase.storage.*;
 import com.squareup.picasso.Picasso;
 
 public class WriteContentsActivity extends AppCompatActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
@@ -34,10 +31,14 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
     private GlobalData globalData;
     private ProgressBar progressBar;
     private ImageView imageView;
+    Contents contents;
 
-    private Uri imageUri;
+    private String imageTimeStamp;
+    private Uri imageUrl;
+
 
     private StorageReference storageRef;
+    private StorageTask uploadTask;
     private int PICK_IMAGE_REQUEST = 1;
 
     @Override
@@ -88,8 +89,8 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
                     return;
                 }
 
+                // 콘텐츠 업로드
                 writeNewContents(contentsCategoryButton.getText().toString(), globalData.getAccount(), contentsTitleInput.getText().toString(), contentsBodyInput.getText().toString());
-                uploadFile();
             }
         }
         else if(i == R.id.cancelButton) {
@@ -103,7 +104,20 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
 
     private void writeNewContents(String categoryName, Account user, String title, String body) {
         long nowTime = System.currentTimeMillis();
-        Contents contents = new Contents(ViewType.ROW_CONTENTS_DETAIL, categoryName, title, body, user.getUid(), user.getName(), nowTime);
+        contents = new Contents(ViewType.ROW_CONTENTS_DETAIL, categoryName, title, body, user.getUid(), user.getName(), nowTime);
+
+        // 이미지 업로드
+        if(uploadTask != null && uploadTask.isInProgress())  // 이미 업로드 중일 때
+        {
+            Toast.makeText(this, "업로드 중입니다.", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            uploadFile();
+            contents.setBodyPicName(imageTimeStamp);
+            contents.setBodyPicUri(imageUrl.toString());
+        }
+
         mDatabase.child("contents").child(contents.getCid()).setValue(contents);
         // TODO : 작성완료 팝업 출력
         finish();
@@ -135,8 +149,8 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageUri = data.getData();
-            Picasso.get().load(imageUri).into(imageView);
+            imageUrl = data.getData();
+            Picasso.get().load(imageUrl).into(imageView);
         }
     }
 
@@ -147,19 +161,15 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
     }
 
     private void uploadFile() {
-        if(imageUri != null) {
-            StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtention(imageUri)); // 파일 업로드 명 : 현재시간.확장자
+        if(imageUrl != null) {
+            imageTimeStamp =  System.currentTimeMillis() + "." + getFileExtention(imageUrl);
+            StorageReference fileRef = storageRef.child(imageTimeStamp); // 파일 업로드 명 : 현재시간.확장자
 
-            fileRef.putFile(imageUri)
+            uploadTask = fileRef.putFile(imageUrl)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() { // 성공 콜백
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(WriteContentsActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
-
-                            /* 파일업로드 된 객체를 DB에 저장한다.
-                            String uploadId = mDatabase.push().getKey();
-                            mDatabase.child(uploadId).setValue(upload);
-                            */
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() { // 실패 콜백

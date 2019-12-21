@@ -129,13 +129,6 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
         holder.tvComments.setText(String.valueOf( contents.getCommentsCount() ));
         holder.tvTime.setText( TimeManager.getFormedDate(contents.getCreateTime()) ); // 작성 시간
 
-        if(contents.getBodyPic() == 0) {
-            holder.imageViewPostPic.setVisibility(View.GONE);
-        }
-        else {
-            holder.imageViewPostPic.setVisibility(View.VISIBLE);
-            glide.load(contents.getBodyPic()).into(holder.imageViewPostPic);
-        }
     }
 
     @Override
