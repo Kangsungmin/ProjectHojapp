@@ -1,34 +1,45 @@
 package com.SMK.Hojapp.Contents;
 
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.*;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.Contents.ContentsTypes.ViewType;
 import com.SMK.Hojapp.GlobalData;
 import com.SMK.Hojapp.Login.Account;
 import com.SMK.Hojapp.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class WriteContentsActivity extends AppCompatActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
     private DatabaseReference mDatabase;
     private Button contentsCategoryButton;
-    private Button imageUploadButton;
     private TextInputEditText contentsTitleInput;
     private TextInputEditText contentsBodyInput;
     private GlobalData globalData;
     private ProgressBar progressBar;
     private ImageView imageView;
 
-    private Uri imgageUri;
+    private Uri imageUri;
 
+    private StorageReference storageRef;
     private int PICK_IMAGE_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,13 +49,15 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
 
         findViewById(R.id.completeButton).setOnClickListener(this);
         findViewById(R.id.cancelButton).setOnClickListener(this);
+        findViewById(R.id.imageUploadButton).setOnClickListener(this);
 
         contentsCategoryButton = (Button) findViewById(R.id.categoryButton);
-        imageUploadButton = findViewById(R.id.imageUploadButton);
+
         contentsTitleInput = (TextInputEditText) findViewById(R.id.contentsTitle);
         contentsBodyInput = (TextInputEditText) findViewById(R.id.contentsBody);
+        imageView = findViewById(R.id.imageView);
 
-
+        storageRef = FirebaseStorage.getInstance().getReference("upload");
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -76,6 +89,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
                 }
 
                 writeNewContents(contentsCategoryButton.getText().toString(), globalData.getAccount(), contentsTitleInput.getText().toString(), contentsBodyInput.getText().toString());
+                uploadFile();
             }
         }
         else if(i == R.id.cancelButton) {
@@ -121,9 +135,47 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imgageUri = data.getData();
+            imageUri = data.getData();
+            Picasso.get().load(imageUri).into(imageView);
+        }
+    }
 
-            Picasso.with(this).load(imgageUri).into(imageView);
+    private String getFileExtention(Uri uri) {
+        ContentResolver cR = getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cR.getType(uri));
+    }
+
+    private void uploadFile() {
+        if(imageUri != null) {
+            StorageReference fileRef = storageRef.child(System.currentTimeMillis() + "." + getFileExtention(imageUri)); // 파일 업로드 명 : 현재시간.확장자
+
+            fileRef.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() { // 성공 콜백
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(WriteContentsActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+
+                            /* 파일업로드 된 객체를 DB에 저장한다.
+                            String uploadId = mDatabase.push().getKey();
+                            mDatabase.child(uploadId).setValue(upload);
+                            */
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() { // 실패 콜백
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(WriteContentsActivity.this, "업로드 실패", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "파일을 선택해주세요", Toast.LENGTH_SHORT).show();
         }
     }
 }
