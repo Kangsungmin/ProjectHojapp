@@ -22,10 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:id="@+id/detailedContentsTimeView"
                 android:padding="10dp"/>
-        <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars[0]"
-                android:id="@+id/contentsImageView"/>
         <TextView
                 android:text="작성자 홍길동"
                 android:layout_width="match_parent"
@@ -40,6 +36,10 @@
                     android:text="내용"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/contentsTextView"/>
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" tools:srcCompat="@tools:sample/avatars[0]"
+                    android:id="@+id/contentsImageView"/>
         </LinearLayout>
         <LinearLayout
                 android:orientation="horizontal"

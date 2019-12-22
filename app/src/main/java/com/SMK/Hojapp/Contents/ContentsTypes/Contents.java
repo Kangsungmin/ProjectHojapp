@@ -116,12 +116,12 @@ public class Contents {
         return bodyPicName;
     }
 
-    public String getBodyPicUri()
+    public String getBodyPicUrl()
     {
         return bodyPicUrl;
     }
 
-    public void setBodyPicUri(String url) {
+    public void setBodyPicUrl(String url) {
         this.bodyPicUrl = url;
     }
 

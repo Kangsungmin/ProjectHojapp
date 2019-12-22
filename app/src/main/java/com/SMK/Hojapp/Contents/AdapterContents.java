@@ -139,11 +139,8 @@ public class AdapterContents extends RecyclerView.Adapter<AdapterContents.Conten
     public class ContentsViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvCategory, tvTitle, tvBody, tvHitCount, tvTime, tvLike, tvComments, tvWriter;
-        ImageView imageViewPostPic;
         public ContentsViewHolder(View itemView) {
             super(itemView);
-
-            imageViewPostPic = (ImageView) itemView.findViewById(R.id.rowContentsPostImageView);
 
             tvCategory = (TextView) itemView.findViewById(R.id.rowContentsCategoryView);
             tvTitle = (TextView) itemView.findViewById(R.id.rowContentstitleView);

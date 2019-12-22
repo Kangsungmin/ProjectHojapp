@@ -20,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -150,6 +151,13 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
             ((ContentsDetailViewHolder) holder).tvLike.setText( String.valueOf(detailedContentsArrayList.get(position).getLikeUserCount()) );
             ((ContentsDetailViewHolder) holder).tvComments.setText( String.valueOf(detailedContentsArrayList.get(position).getCommentsCount()) );
             ((ContentsDetailViewHolder) holder).tvTime.setText( TimeManager.getFormedDate(detailedContentsArrayList.get(position).getCreateTime()) );
+            //이미지 세팅
+            Picasso.get().load(detailedContentsArrayList.get(position).getBodyPicUrl() )
+                    .fit()
+                    .centerCrop()
+                    .into(((ContentsDetailViewHolder) holder).ivBody);
+
+
         }
         else if(holder instanceof CommentViewHolder) { // 댓글일 때
             // 위젯 데이터 세팅
@@ -175,6 +183,7 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
         TextView tvCategory;
         TextView tvTitle;
         TextView tvBody;
+        ImageView ivBody;
         TextView tvWriter;
         TextView tvHitCount;
         TextView tvLike;
@@ -187,6 +196,7 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
             tvCategory = itemView.findViewById(R.id.detailedContentsCategoryView);
             tvTitle = itemView.findViewById(R.id.detailedContentsTitleView);
             tvBody = itemView.findViewById(R.id.contentsTextView);
+            ivBody = itemView.findViewById(R.id.contentsImageView);
             tvWriter = itemView.findViewById(R.id.detailedContentsWriterView);
             tvHitCount = itemView.findViewById(R.id.detailedContentsHitCountView);
             tvLike = itemView.findViewById(R.id.detailedContentsLikeCountView);

@@ -18,6 +18,7 @@ import com.SMK.Hojapp.Login.Account;
 import com.SMK.Hojapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.*;
@@ -34,8 +35,7 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
     Contents contents;
 
     private String imageTimeStamp;
-    private Uri imageUrl;
-
+    private Uri imageURI;
 
     private StorageReference storageRef;
     private StorageTask uploadTask;
@@ -113,12 +113,9 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         }
         else
         {
-            uploadFile();
-            contents.setBodyPicName(imageTimeStamp);
-            contents.setBodyPicUri(imageUrl.toString());
+            uploadFile(contents);
         }
 
-        mDatabase.child("contents").child(contents.getCid()).setValue(contents);
         // TODO : 작성완료 팝업 출력
         finish();
     }
@@ -149,8 +146,8 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageUrl = data.getData();
-            Picasso.get().load(imageUrl).into(imageView);
+            imageURI = data.getData();
+            Picasso.get().load(imageURI).into(imageView);
         }
     }
 
@@ -160,16 +157,27 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    private void uploadFile() {
-        if(imageUrl != null) {
-            imageTimeStamp =  System.currentTimeMillis() + "." + getFileExtention(imageUrl);
+    private void uploadFile(final Contents contents) {
+
+        //이미지가 존재 할 때.
+        if(imageURI != null) {
+            imageTimeStamp =  System.currentTimeMillis() + "." + getFileExtention(imageURI);
             StorageReference fileRef = storageRef.child(imageTimeStamp); // 파일 업로드 명 : 현재시간.확장자
 
-            uploadTask = fileRef.putFile(imageUrl)
+            uploadTask = fileRef.putFile(imageURI)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() { // 성공 콜백
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(WriteContentsActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+
+                            contents.setBodyPicName(imageTimeStamp);
+                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+
+                            while(uri.isComplete() == false) ;
+                            Uri url = uri.getResult();
+                            contents.setBodyPicUrl( url.toString() );
+                            // 게시물 DB업로드
+                            mDatabase.child("contents").child(contents.getCid()).setValue(contents);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() { // 실패 콜백
@@ -184,6 +192,8 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
 
                         }
                     });
+
+
         } else {
             Toast.makeText(this, "파일을 선택해주세요", Toast.LENGTH_SHORT).show();
         }
