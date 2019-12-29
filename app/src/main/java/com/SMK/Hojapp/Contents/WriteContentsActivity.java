@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.*;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class WriteContentsActivity extends AppCompatActivity implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
     private DatabaseReference mDatabase;
     private Button contentsCategoryButton;
@@ -31,11 +33,12 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
     private TextInputEditText contentsBodyInput;
     private GlobalData globalData;
     private ProgressBar progressBar;
-    private ImageView imageView;
+    private final int LOAD_IMAGE_MAX_COUNT = 5; // 로드 이미지 최댓값
+    private LinearLayout imageLayout; // 이미지 동적 생성용 레이아웃
     Contents contents;
 
     private String imageTimeStamp;
-    private Uri imageURI;
+    private ArrayList<Uri> imageURIList;
 
     private StorageReference storageRef;
     private StorageTask uploadTask;
@@ -56,7 +59,8 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
 
         contentsTitleInput = (TextInputEditText) findViewById(R.id.contentsTitle);
         contentsBodyInput = (TextInputEditText) findViewById(R.id.contentsBody);
-        imageView = findViewById(R.id.imageView);
+        imageLayout = findViewById(R.id.loadedImageLayout);
+        imageURIList = new ArrayList<>(); // 이미지 URI 리스트
 
         storageRef = FirebaseStorage.getInstance().getReference("upload");
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -106,14 +110,19 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         long nowTime = System.currentTimeMillis();
         contents = new Contents(ViewType.ROW_CONTENTS_DETAIL, categoryName, title, body, user.getUid(), user.getName(), nowTime);
 
-        // 이미지 업로드
+
         if(uploadTask != null && uploadTask.isInProgress())  // 이미 업로드 중일 때
         {
             Toast.makeText(this, "업로드 중입니다.", Toast.LENGTH_SHORT).show();
         }
-        else
+        else if(imageURIList.size() > 0) // 이미지 첨부파일이 존재할 때
         {
-            uploadFile(contents);
+            uploadContentsWithFile(contents);
+        }
+        else // 이미지 첨부파일이 없을 때(글만 업로드 할 때)
+        {
+            // 게시물 DB업로드
+            mDatabase.child("contents").child(contents.getCid()).setValue(contents);
         }
 
         // TODO : 작성완료 팝업 출력
@@ -141,13 +150,27 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+    /*
+    이미지 선택이 완료되었을 때 호출된다.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
-            imageURI = data.getData();
-            Picasso.get().load(imageURI).into(imageView);
+
+            if(imageURIList.size() < LOAD_IMAGE_MAX_COUNT){
+                Uri tempUri = data.getData();
+                imageURIList.add(tempUri);
+                // 이미지 뷰를 동적으로 생성하여 이미지레이아웃에 추가한다.
+                ImageView loadImageView = new ImageView(this);
+                Picasso.get().load(tempUri).into(loadImageView);
+                imageLayout.addView(loadImageView);
+            }
+            else{ // 이미지 업로드 개수 초과
+                Toast.makeText(WriteContentsActivity.this, "이미지는 5개 까지만 업로드됩니다.", Toast.LENGTH_SHORT).show();
+            }
+
         }
     }
 
@@ -157,45 +180,40 @@ public class WriteContentsActivity extends AppCompatActivity implements View.OnC
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    private void uploadFile(final Contents contents) {
+    private void uploadContentsWithFile(final Contents contents) {
 
         //이미지가 존재 할 때.
-        if(imageURI != null) {
-            imageTimeStamp =  System.currentTimeMillis() + "." + getFileExtention(imageURI);
-            StorageReference fileRef = storageRef.child(imageTimeStamp); // 파일 업로드 명 : 현재시간.확장자
+        for(int i = 0; i < imageURIList.size(); i++) {
+                Uri t_uri = imageURIList.get(i);
+                imageTimeStamp =  System.currentTimeMillis() + "." + getFileExtention(t_uri);
+                StorageReference fileRef = storageRef.child(imageTimeStamp); // 파일 업로드 명 : 현재시간.확장자
 
-            uploadTask = fileRef.putFile(imageURI)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() { // 성공 콜백
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(WriteContentsActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
+                uploadTask = fileRef.putFile(t_uri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() { // 성공 콜백
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Toast.makeText(WriteContentsActivity.this, "업로드 성공", Toast.LENGTH_SHORT).show();
 
-                            contents.setBodyPicName(imageTimeStamp);
-                            Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                                Task<Uri> uri = taskSnapshot.getStorage().getDownloadUrl();
+                                while(uri.isComplete() == false) ; // 주의 : 무한루프
+                                Uri url = uri.getResult();
+                                contents.addBodyPicUrl( url.toString() );
+                                // 게시물 DB업로드
+                                mDatabase.child("contents").child(contents.getCid()).setValue(contents);
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() { // 실패 콜백
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(WriteContentsActivity.this, "업로드 실패", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            while(uri.isComplete() == false) ;
-                            Uri url = uri.getResult();
-                            contents.setBodyPicUrl( url.toString() );
-                            // 게시물 DB업로드
-                            mDatabase.child("contents").child(contents.getCid()).setValue(contents);
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() { // 실패 콜백
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(WriteContentsActivity.this, "업로드 실패", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-
-                        }
-                    });
-
-
-        } else {
-            Toast.makeText(this, "파일을 선택해주세요", Toast.LENGTH_SHORT).show();
+                            }
+                        });
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.SMK.Hojapp.Contents.ContentsTypes;
 
-import android.net.Uri;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -14,8 +12,7 @@ public class Contents {
     String parentCid;    // 댓글일 경우 : 부모 게시글 id
     String title;
     String body;
-    String bodyPicName;
-    String bodyPicUrl;
+    ArrayList<String> bodyPicUrlList;
     String wUid;         // 작성자 uid
     String wName;        // 작성자 name
     int hitCount;        // 조회수
@@ -41,8 +38,9 @@ public class Contents {
         this.wUid = writerUid;
         this.wName = writerName;
         this.createTime = createTime;
-        this.likeUserMap = new HashMap<String, Long>();
-        this.commentList = new ArrayList<Contents>();
+        this.likeUserMap = new HashMap<>();
+        this.commentList = new ArrayList<>();
+        this.bodyPicUrlList = new ArrayList<>();
     }
 
     public Contents(int vType, String parentCid, String body, String writerUid, String writerName, long createTime) {
@@ -53,8 +51,9 @@ public class Contents {
         this.wUid = writerUid;
         this.wName = writerName;
         this.createTime = createTime;
-        this.likeUserMap = new HashMap<String, Long>();
-        this.commentList = new ArrayList<Contents>();
+        this.likeUserMap = new HashMap<>();
+        this.commentList = new ArrayList<>();
+        this.bodyPicUrlList = new ArrayList<>();
     }
 
 
@@ -108,21 +107,21 @@ public class Contents {
         this.body = body;
     }
 
-    public void setBodyPicName(String name){
-        bodyPicName = name;
+    public int getBodyPicUrlSize() {
+        if(bodyPicUrlList == null)
+        {
+            return 0;
+        }
+        else return bodyPicUrlList.size();
     }
 
-    public String getBodyPicName(){
-        return bodyPicName;
-    }
-
-    public String getBodyPicUrl()
+    public String getBodyPicUrl(int index)
     {
-        return bodyPicUrl;
+        return bodyPicUrlList.get(index);
     }
 
-    public void setBodyPicUrl(String url) {
-        this.bodyPicUrl = url;
+    public void addBodyPicUrl(String url) {
+        this.bodyPicUrlList.add(url);
     }
 
     public String getwUid() {

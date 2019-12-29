@@ -11,8 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import com.SMK.Hojapp.Chat.ChatRoomListActivity;
-import com.SMK.Hojapp.Contents.Fragment.Market;
-import com.SMK.Hojapp.Contents.Fragment.TimeLine;
+import com.SMK.Hojapp.Contents.Fragment.*;
 import com.SMK.Hojapp.Profile.ProfileActivity;
 import com.SMK.Hojapp.R;
 
@@ -33,7 +32,6 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
 
-        //database = FirebaseDatabase.getInstance();
         findViewById(R.id.writeButton).setOnClickListener(this);
         findViewById(R.id.chatButton).setOnClickListener(this);
         findViewById(R.id.profileButton).setOnClickListener(this);
@@ -51,10 +49,10 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new TimeLine(), "타임라인");
-        adapter.addFrag(new TimeLine(), "잡담/이야기");
+        adapter.addFrag(new Chitchat(), "잡담/이야기");
         adapter.addFrag(new Market(), "사고팔기");
-        adapter.addFrag(new Market(), "방 구하기");
-        adapter.addFrag(new Market(), "알바 구하기");
+        adapter.addFrag(new Realty(), "방 구하기");
+        adapter.addFrag(new Job(), "알바 구하기");
         viewPager.setAdapter(adapter);
     }
 
@@ -99,7 +97,6 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
     protected void onResume() {
         super.onResume();
     }
-
 
     @Override
     protected void onPause() {

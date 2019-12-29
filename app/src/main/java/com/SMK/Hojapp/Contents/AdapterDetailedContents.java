@@ -2,11 +2,10 @@ package com.SMK.Hojapp.Contents;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.SMK.Hojapp.Chat.ChatActivity;
@@ -31,6 +30,7 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
     private GlobalData globalData;
     ArrayList<Contents> detailedContentsArrayList = null;
     RequestManager glide;
+    private int screenWidth;
 
     public AdapterDetailedContents(Context context, ArrayList<Contents> commentArrayList){
         this.context = context;
@@ -38,6 +38,11 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
         this.detailedContentsArrayList = commentArrayList;
         glide = Glide.with(context);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        WindowManager wm = (WindowManager) context.getSystemService(context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        screenWidth = size.x;
     }
 
     @Override
@@ -142,21 +147,26 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ContentsDetailViewHolder){ // 게시글일 때
+            Contents getContents =  detailedContentsArrayList.get(position);
             // 위젯 데이터 세팅
-            ((ContentsDetailViewHolder) holder).tvCategory.setText(detailedContentsArrayList.get(position).getCategory());
-            ((ContentsDetailViewHolder) holder).tvTitle.setText(detailedContentsArrayList.get(position).getTitle());
-            ((ContentsDetailViewHolder) holder).tvBody.setText(detailedContentsArrayList.get(position).getBody());
-            ((ContentsDetailViewHolder) holder).tvWriter.setText(detailedContentsArrayList.get(position).getwUid());
-            ((ContentsDetailViewHolder) holder).tvHitCount.setText( String.valueOf(detailedContentsArrayList.get(position).getHitCount()) );
-            ((ContentsDetailViewHolder) holder).tvLike.setText( String.valueOf(detailedContentsArrayList.get(position).getLikeUserCount()) );
-            ((ContentsDetailViewHolder) holder).tvComments.setText( String.valueOf(detailedContentsArrayList.get(position).getCommentsCount()) );
-            ((ContentsDetailViewHolder) holder).tvTime.setText( TimeManager.getFormedDate(detailedContentsArrayList.get(position).getCreateTime()) );
-            //이미지 세팅
-            Picasso.get().load(detailedContentsArrayList.get(position).getBodyPicUrl() )
-                    .fit()
-                    .centerCrop()
-                    .into(((ContentsDetailViewHolder) holder).ivBody);
+            ((ContentsDetailViewHolder) holder).tvCategory.setText(getContents.getCategory());
+            ((ContentsDetailViewHolder) holder).tvTitle.setText(getContents.getTitle());
+            ((ContentsDetailViewHolder) holder).tvBody.setText(getContents.getBody());
+            ((ContentsDetailViewHolder) holder).tvWriter.setText(detailedContentsArrayList.get(position).getwName());
+            ((ContentsDetailViewHolder) holder).tvHitCount.setText( String.valueOf(getContents.getHitCount()) );
+            ((ContentsDetailViewHolder) holder).tvLike.setText( String.valueOf(getContents.getLikeUserCount()) );
+            ((ContentsDetailViewHolder) holder).tvComments.setText( String.valueOf(getContents.getCommentsCount()) );
+            ((ContentsDetailViewHolder) holder).tvTime.setText( TimeManager.getFormedDate(getContents.getCreateTime()) );
 
+            //이미지 세팅
+            for(int i = 0; i < getContents.getBodyPicUrlSize(); i++){
+                Picasso.get().load( getContents.getBodyPicUrl(i) )
+                        .centerCrop()
+                        // 현재 화면 가로 사이즈를 기준으로 이미지 높이를 자동으로 맞춘다.
+                        .resize(screenWidth,0)
+                        .into(((ContentsDetailViewHolder) holder).imageViewList[i]);
+                ((ContentsDetailViewHolder) holder).imageViewList[i].requestLayout();
+            }
 
         }
         else if(holder instanceof CommentViewHolder) { // 댓글일 때
@@ -183,7 +193,7 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
         TextView tvCategory;
         TextView tvTitle;
         TextView tvBody;
-        ImageView ivBody;
+        ImageView[] imageViewList;
         TextView tvWriter;
         TextView tvHitCount;
         TextView tvLike;
@@ -196,13 +206,19 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
             tvCategory = itemView.findViewById(R.id.detailedContentsCategoryView);
             tvTitle = itemView.findViewById(R.id.detailedContentsTitleView);
             tvBody = itemView.findViewById(R.id.contentsTextView);
-            ivBody = itemView.findViewById(R.id.contentsImageView);
+            imageViewList = new ImageView[5];
+            imageViewList[0] = itemView.findViewById(R.id.loadImage0);
+            imageViewList[1] = itemView.findViewById(R.id.loadImage1);
+            imageViewList[2] = itemView.findViewById(R.id.loadImage2);
+            imageViewList[3] = itemView.findViewById(R.id.loadImage3);
+            imageViewList[4] = itemView.findViewById(R.id.loadImage4);
             tvWriter = itemView.findViewById(R.id.detailedContentsWriterView);
             tvHitCount = itemView.findViewById(R.id.detailedContentsHitCountView);
             tvLike = itemView.findViewById(R.id.detailedContentsLikeCountView);
             tvComments = itemView.findViewById(R.id.detailedContentsCommentCountView);
             tvTime = itemView.findViewById(R.id.detailedContentsTimeView);
         }
+
     }
 
     public class CommentViewHolder extends RecyclerView.ViewHolder {
