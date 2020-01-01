@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import com.SMK.Hojapp.GlobalData;
@@ -36,22 +35,23 @@ public class ChatRoomListActivity extends AppCompatActivity {
 
         globalData = (GlobalData) getApplicationContext();
         nick = "익명의 참여자";
-        Button_make_room = findViewById(R.id.Button_make_room);
+        //Button_make_room = findViewById(R.id.Button_make_room);
 
         // 방 생성 함수
+       /*
         Button_make_room.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*
+
                 ArrayList<String> newMember = new ArrayList<>();
                 newMember.add("새로운 대화상대");
                 ChatRoomData chatRoom = new ChatRoomData("대화를 시작하세요.", newMember, System.currentTimeMillis());
                 // 채팅방 DB 추가
                 myRef.child("message_room_list").child(chatRoom.getRoomID()).setValue(chatRoom);
-                */
+
             }
         });
-
+       */
         mRecyclerView = findViewById(R.id.chat_room_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);

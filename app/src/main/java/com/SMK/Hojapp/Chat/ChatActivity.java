@@ -43,7 +43,7 @@ public class ChatActivity extends AppCompatActivity implements SwipeRefreshLayou
 
         Intent intent = getIntent(); /*데이터 수신*/
         roomID = intent.getExtras().getString("ID_ROOM");
-        nick = globalData.getAccount().getUid();
+        nick = globalData.getAccount().getName();
         Button_send = findViewById(R.id.Button_send);
         EditText_chat = findViewById(R.id.EditText_chat);
 
@@ -53,20 +53,24 @@ public class ChatActivity extends AppCompatActivity implements SwipeRefreshLayou
                 String msg = EditText_chat.getText().toString(); //msg
 
                 if(msg != null) {
-                    ChatData chat = new ChatData();
-                    chat.setNickname(nick);
-                    chat.setMsg(msg);
-                    chat.setRoomID(roomID);
+                    // 채팅을 전송한다.
+                    final ChatData chat = new ChatData(roomID, msg, nick, System.currentTimeMillis());
                     myRef.child("message").push().setValue(chat); //push().setValue(chat);
+
+                    // 채팅방의 마지막 채팅을 갱신한다.
+                    myRef.child("message_room_list").child(roomID).child("lastMsg").setValue(chat.getMsg());
+                    myRef.child("message_room_list").child(roomID).child("updateTime").setValue(chat.getGenTime());
+                    // 채팅 입력란 초기화
+                    EditText_chat.setText("");
                 }
             }
         });
 
-
-
         mRecyclerView = findViewById(R.id.chat_recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
+        ((LinearLayoutManager) mLayoutManager).setReverseLayout(true);
+        ((LinearLayoutManager) mLayoutManager).setStackFromEnd(false);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         chatList = new ArrayList<>();
@@ -110,7 +114,7 @@ public class ChatActivity extends AppCompatActivity implements SwipeRefreshLayou
             // contents의 하위 카테고리의 contents들을 가져온다.
             ChatData val = snapshot.getValue(ChatData.class);
             if(val != null) {
-                chatList.add(val); // 리스트 뒤에 삽입
+                chatList.add(0, val); // 리스트 뒤에 삽입
             }
         }
         mAdapter.notifyDataSetChanged();     // [어댑터 변경 알림]

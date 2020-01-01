@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.SMK.Hojapp.R;
+import com.SMK.Hojapp.TimeManager;
 
 import java.util.List;
 
@@ -25,13 +26,14 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyViewHolder> 
         // each data item is just a string in this case
         public TextView TextView_nickname;
         public TextView TextView_msg;
+        public TextView TextView_genTime;
         public View rootView;
         public MyViewHolder(View v) {
             super(v);
             TextView_nickname = v.findViewById(R.id.TextView_nickname);
             TextView_msg = v.findViewById(R.id.TextView_msg);
+            TextView_genTime = v.findViewById(R.id.TextView_genTime);
             rootView = v;
-
         }
     }
 
@@ -62,6 +64,8 @@ public class AdapterChat extends RecyclerView.Adapter<AdapterChat.MyViewHolder> 
 
         holder.TextView_nickname.setText(chat.getNickname());
         holder.TextView_msg.setText(chat.getMsg());
+        holder.TextView_genTime.setText( TimeManager.getFormedMinute(chat.getGenTime()) );
+
 
         // 내가 작성한 메세지 일 때.
         if(chat.getNickname().equals(this.myNickName)) {

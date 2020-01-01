@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.SMK.Hojapp.Chat.ChatActivity;
 import com.SMK.Hojapp.Chat.ChatRoomData;
+import com.SMK.Hojapp.Chat.Member;
 import com.SMK.Hojapp.Contents.ContentsTypes.Contents;
 import com.SMK.Hojapp.Contents.ContentsTypes.ViewType;
 import com.SMK.Hojapp.GlobalData;
@@ -96,8 +97,8 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
                     if(contents != null)
                     {
                         // 채팅방 생성
-                        ArrayList<String> firstMember = new ArrayList<String>();
-                        firstMember.add(contents.getwUid());
+                        ArrayList<Member> firstMember = new ArrayList<>();
+                        firstMember.add( new Member(contents.getwUid(), contents.getwName()) );
                         ChatRoomData chatRoom = new ChatRoomData("대화를 시작하세요.", firstMember, System.currentTimeMillis());
                         // 채팅방 DB 추가
                         mDatabase.child("message_room_list").child(chatRoom.getRoomID()).setValue(chatRoom);

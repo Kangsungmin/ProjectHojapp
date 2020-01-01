@@ -42,14 +42,14 @@ public class TimeLine extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_time_line, container, false);
+        View v = inflater.inflate(R.layout.activity_basic_fragment, container, false);
 
         // DB 에서 viewType 이 Contents 인 데이터만 로드한다.
         newsFeedDbReference = FirebaseDatabase.getInstance().getReference().child("contents");
 
         // [리소스 초기화 시작]
-        recyclerView = (RecyclerView) v.findViewById(R.id.timeLineRecyclerView);
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.timeLineSwipeLayout);
+        recyclerView = (RecyclerView) v.findViewById(R.id.basicRecyclerView);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.basicSwipeLayout);
         // [리소스 초기화 끝]
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);

@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 import com.SMK.Hojapp.Chat.ChatRoomListActivity;
 import com.SMK.Hojapp.Contents.Fragment.*;
 import com.SMK.Hojapp.Profile.ProfileActivity;
@@ -32,9 +33,11 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_feed);
 
-        findViewById(R.id.writeButton).setOnClickListener(this);
+        findViewById(R.id.searchButton).setOnClickListener(this);
         findViewById(R.id.chatButton).setOnClickListener(this);
+        findViewById(R.id.notiButton).setOnClickListener(this);
         findViewById(R.id.profileButton).setOnClickListener(this);
+        findViewById(R.id.writeButton).setOnClickListener(this);
 
         // [데이터 초기화 시작]
         viewPager = (ViewPager) findViewById(R.id.viewpager);
@@ -122,6 +125,16 @@ public class NewsFeedActivity extends AppCompatActivity implements View.OnClickL
             case R.id.profileButton:
             {
                 Intent intent = new Intent(NewsFeedActivity.this, ProfileActivity.class); startActivity(intent);
+                break;
+            }
+            case R.id.searchButton:
+            {
+                Toast.makeText(this, "준비중인 기능입니다.", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.notiButton:
+            {
+                Toast.makeText(this, "준비중인 기능입니다.", Toast.LENGTH_SHORT).show();
                 break;
             }
         }

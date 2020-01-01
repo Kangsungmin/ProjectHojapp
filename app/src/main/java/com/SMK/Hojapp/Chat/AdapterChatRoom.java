@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.SMK.Hojapp.R;
+import com.SMK.Hojapp.TimeManager;
 
 import java.util.ArrayList;
 
@@ -78,8 +79,9 @@ public class AdapterChatRoom extends RecyclerView.Adapter<AdapterChatRoom.ChatRo
         // - replace the contents of the view with that element
         ChatRoomData chatRoom = rommDataList.get(position);
 
-        holder.TextView_members.setText(chatRoom.getMembers().toString());
+        holder.TextView_members.setText(chatRoom.getMembersName());
         holder.TextView_last_msg.setText(chatRoom.getLastMsg());
+        holder.TextView_update_time.setText( TimeManager.getFormedMinute(chatRoom.getUpdateTime()) );
     }
 
     // Return the size of your dataset (invoked by the layout manager)

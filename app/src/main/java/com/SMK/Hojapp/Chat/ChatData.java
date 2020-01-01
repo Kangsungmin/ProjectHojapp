@@ -10,6 +10,18 @@ public class ChatData {
     private String roomID = "";
     private String msg = "";
     private String nickname = "";
+    private long genTime = 0;
+
+    public ChatData() {
+
+    }
+
+    public ChatData(String roomID, String msg, String nickname, long genTime) {
+        this.roomID = roomID;
+        this.msg = msg;
+        this.nickname = nickname;
+        this.genTime = genTime;
+    }
 
     public String getRoomID() {
         return roomID;
@@ -28,10 +40,18 @@ public class ChatData {
     }
 
     public String getNickname() {
-        return nickname;
+        return this.nickname;
     }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public long getGenTime() {
+        return genTime;
+    }
+
+    public void setGenTime(long genTime) {
+        this.genTime = genTime;
     }
 }

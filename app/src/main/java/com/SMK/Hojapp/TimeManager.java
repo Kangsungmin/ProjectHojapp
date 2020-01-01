@@ -13,4 +13,12 @@ public class TimeManager {
         Date resultDate = new Date(rawDate);
         return sdf.format(resultDate);
     }
+
+    public static String getFormedMinute(long rawDate) {
+        // 오늘일 경우 시간 : 분 표시. 오늘이 아닌 경우 날짜까지만 표시
+
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        Date resultDate = new Date(rawDate);
+        return sdf.format(resultDate);
+    }
 }

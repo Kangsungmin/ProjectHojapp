@@ -42,13 +42,13 @@ public class Chitchat extends Fragment implements SwipeRefreshLayout.OnRefreshLi
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.activity_market, container, false);
+        View v = inflater.inflate(R.layout.activity_basic_fragment, container, false);
 
         dbReference = FirebaseDatabase.getInstance().getReference().child("contents");
 
         // [리소스 초기화 시작]
-        recyclerView = (RecyclerView) v.findViewById(R.id.marketRecyclerView);
-        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.marketSwipeLayout);
+        recyclerView = (RecyclerView) v.findViewById(R.id.basicRecyclerView);
+        swipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.basicSwipeLayout);
         // [리소스 초기화 끝]
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(v.getContext());
         recyclerView.setLayoutManager(layoutManager);
