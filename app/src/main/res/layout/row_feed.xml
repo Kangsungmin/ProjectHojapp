@@ -86,6 +86,9 @@
                         android:layout_weight="1"
                         android:gravity="right|center_vertical"/>
             </LinearLayout>
+            <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="17dp"/>
 
         </LinearLayout>
     </RelativeLayout>

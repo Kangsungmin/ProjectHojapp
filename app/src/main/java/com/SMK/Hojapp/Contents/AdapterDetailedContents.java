@@ -89,9 +89,6 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
             tvWriter.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // TODO: 상대방 정보를 표시하는 액티비티가 실행된다.
-                    //       하단의 상대방과 1:1 채팅 버튼이 존재하고 클릭 시 상대방과 1:1 채팅방을 생성한다.
-                    //       이후 DB 에 새로 생성한 채팅방을 추가하고 해당 채팅방의 채팅 Activity 를 실행한다.
                     int position = viewHolder.getAdapterPosition();
                     Contents contents = detailedContentsArrayList.get(position);
                     if(contents != null)
@@ -150,7 +147,7 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
         if(holder instanceof ContentsDetailViewHolder){ // 게시글일 때
             Contents getContents =  detailedContentsArrayList.get(position);
             // 위젯 데이터 세팅
-            ((ContentsDetailViewHolder) holder).tvCategory.setText(getContents.getCategory());
+            ((ContentsDetailViewHolder) holder).tvCategory.setText("#" + getContents.getCategory());
             ((ContentsDetailViewHolder) holder).tvTitle.setText(getContents.getTitle());
             ((ContentsDetailViewHolder) holder).tvBody.setText(getContents.getBody());
             ((ContentsDetailViewHolder) holder).tvWriter.setText(detailedContentsArrayList.get(position).getwName());
@@ -172,6 +169,7 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
         }
         else if(holder instanceof CommentViewHolder) { // 댓글일 때
             // 위젯 데이터 세팅
+            ((CommentViewHolder) holder).tvWriter.setText(detailedContentsArrayList.get(position).getwName());
             ((CommentViewHolder) holder).tvBody.setText(detailedContentsArrayList.get(position).getBody());
             ((CommentViewHolder) holder).tvTime.setText( TimeManager.getFormedDate(detailedContentsArrayList.get(position).getCreateTime()) );
             ((CommentViewHolder) holder).tvLike.setText( String.valueOf(detailedContentsArrayList.get(position).getLikeUserCount()) );

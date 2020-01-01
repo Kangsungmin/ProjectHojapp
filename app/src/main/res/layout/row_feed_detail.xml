@@ -43,27 +43,27 @@
                     android:id="@+id/detailedImageLayout">
                 <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars[0]"
+                        android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:id="@+id/loadImage0"/>
                 <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars[0]"
+                        android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:id="@+id/loadImage1"/>
                 <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="200dp" tools:srcCompat="@tools:sample/avatars[0]"
+                        android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:id="@+id/loadImage2"/>
                 <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="200dp" tools:srcCompat="@tools:sample/avatars[0]"
+                        android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:id="@+id/loadImage3"/>
                 <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" tools:srcCompat="@tools:sample/avatars[0]"
+                        android:layout_height="wrap_content"
                         android:adjustViewBounds="true"
                         android:id="@+id/loadImage4"/>
             </LinearLayout>

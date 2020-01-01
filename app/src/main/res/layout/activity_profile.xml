@@ -11,46 +11,52 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent" android:layout_weight="1">
-                <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                        android:id="@+id/backImage" android:layout_weight="1"
-                        android:layout_gravity="left"/>
-                <TextView
-                        android:text="뒤로가기"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent" android:id="@+id/com"
-                        android:layout_weight="1"
-                        android:gravity="center|left" android:layout_gravity="left"/>
-            </LinearLayout>
-            <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1"/>
             <TextView
-                    android:text="내 프로필"
-                    android:layout_width="wrap_content"
+                    android:text="프로필"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:id="@+id/profileViewTitleView"
                     android:layout_weight="1"/>
-            <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_weight="1"/>
-            <TextView
-                    android:text="로그아웃"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:id="@+id/logoutTextView"
-                    android:layout_weight="1"/>
-            <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                    android:id="@+id/logoutImage" android:layout_weight="1"
-                    android:layout_gravity="center"/>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" android:layout_weight="1">
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                            android:id="@+id/backImage" android:layout_weight="1"
+                            android:layout_gravity="left"/>
+                    <TextView
+                            android:text="뒤로가기"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" android:id="@+id/com"
+                            android:layout_weight="1"
+                            android:gravity="center|left" android:layout_gravity="left"/>
+                </LinearLayout>
+                <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" android:layout_weight="1">
+                    <TextView
+                            android:text="로그아웃"
+                            android:gravity="center|right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent" android:id="@+id/logoutTextView"
+                            android:layout_weight="1"/>
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                            android:id="@+id/logoutImage" android:layout_weight="1"
+                            android:layout_gravity="center"/>
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
         <ScrollView
                 android:layout_width="match_parent"
@@ -66,17 +72,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent" android:id="@+id/profileName" android:layout_weight="1"
                             android:textSize="24dp"/>
-                    <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                            android:id="@+id/profileEditImage" android:layout_weight="1"
-                            android:layout_gravity="center"/>
                     <TextView
                             android:text="수정"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent" android:id="@+id/editTextVIew"
                             android:layout_weight="1"
                             android:gravity="center"/>
+                    <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
+                            android:id="@+id/profileEditImage" android:layout_weight="1"
+                            android:layout_gravity="center"/>
                 </LinearLayout>
                 <LinearLayout
                         android:orientation="horizontal"
@@ -84,23 +90,24 @@
                         android:layout_height="match_parent">
                     <TextView
                             android:text="북마크"
+                            android:gravity="center|left"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/bookMarkView"
-                            android:layout_weight="1"/>
+                            android:layout_height="match_parent" android:id="@+id/bookMarkView"
+                            android:layout_weight="0"/>
                     <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                            android:id="@+id/bookMarkImage" android:layout_weight="1"/>
+                            android:id="@+id/bookMarkImage" android:layout_weight="0"/>
                 </LinearLayout>
                 <LinearLayout
                         android:orientation="horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     <TextView
-                            android:text="받은 좋아요"
+                            android:text="받은 좋아요 : "
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" android:id="@+id/likeCountText"
-                            android:layout_weight="1"/>
+                            android:layout_weight="0"/>
                     <TextView
                             android:text="113"
                             android:layout_width="wrap_content"
@@ -112,13 +119,14 @@
                         android:layout_height="match_parent" android:layout_weight="1">
                     <TextView
                             android:text="설정"
+                            android:gravity="center|left"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" android:id="@+id/optionView"
-                            android:layout_weight="1"/>
+                            android:layout_height="match_parent" android:id="@+id/optionView"
+                            android:layout_weight="0"/>
                     <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" app:srcCompat="@android:drawable/btn_star"
-                            android:id="@+id/imageView3" android:layout_weight="1"/>
+                            android:id="@+id/imageView3" android:layout_weight="0"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
