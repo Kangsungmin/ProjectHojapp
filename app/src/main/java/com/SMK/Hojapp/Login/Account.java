@@ -4,12 +4,15 @@ package com.SMK.Hojapp.Login;
  *
  */
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class Account {
     private String uid;
     private String name;
     private long lastLoginTime;
+    private Map<String, String> roomDataMap; // 자신이 참가하고있는 채팅방을 Set으로 관리한다.
 
     private Random rnd;
 
@@ -24,6 +27,7 @@ public class Account {
         this.uid = uid;
         this.name = nickName;
         this.lastLoginTime = lastLoginTime;
+        this.roomDataMap = new HashMap<>();
     }
 
     public String getName() {
@@ -63,5 +67,21 @@ public class Account {
 
     public String getUid(){
         return uid;
+    }
+
+    public void addChatRoom(String roomID) {
+        roomDataMap.put(roomID,"");
+    }
+
+    public void removeChatRoom(String roomID) {
+        roomDataMap.remove(roomID);
+    }
+
+    public Map<String,String> getRoomDataMap() {
+        return this.roomDataMap;
+    }
+
+    public Boolean isMyChatRoom(String roomID) {
+        return this.roomDataMap.containsKey(roomID);
     }
 }

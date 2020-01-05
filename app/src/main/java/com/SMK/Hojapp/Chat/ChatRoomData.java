@@ -1,12 +1,13 @@
 package com.SMK.Hojapp.Chat;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 // 방에 대한 정보는 {대화 상대닉네임들, 가장 마지막 대화, 마지막 갱신 시간}
 public class ChatRoomData {
     private String lastMsg = "";    // 마지막으로 주고 받은 대화
-    private ArrayList<Member> members = new ArrayList<>();    // 대화 상대닉네임들
+    private Map<String, Member> members;    // 대화 상대닉네임들(KEY : UID)
     private  String roomID = "";
     private long updateTime;        // 갱신 시간
 
@@ -14,10 +15,10 @@ public class ChatRoomData {
 
     }
 
-    public ChatRoomData(String lastMsg, ArrayList<Member> members, long updateTime) {
+    public ChatRoomData(String lastMsg, long updateTime) {
         roomID = UUID.randomUUID().toString(); // 랜덤 식별 ID 생성
         this.lastMsg = lastMsg;
-        this.members = members;
+        this.members = new HashMap<String, Member>();
         this.updateTime = updateTime;
     }
 
@@ -31,7 +32,7 @@ public class ChatRoomData {
 
     public void addMember(Member member) {
         if(member.uid.equals("") == false){ // uid가 존재할 때
-            this.members.add(member);
+            this.members.put(member.uid, member);
         }
     }
 
@@ -47,14 +48,16 @@ public class ChatRoomData {
         return lastMsg;
     }
 
-    public ArrayList<Member> getMembers() {
+    public Map<String, Member> getMembers() {
         return members;
     }
 
     public String getMembersName() { // 채팅방 멤버들의 이름을 나열하여 문자열 리턴
         String rtn = "";
-        for(Member tmp : members){
-            rtn += tmp.name;
+        // Map 순회
+
+        for(Map.Entry<String, Member> tmp : members.entrySet()){
+            rtn += tmp.getValue().name;
         }
         return rtn;
     }

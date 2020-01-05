@@ -94,11 +94,13 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
                     if(contents != null)
                     {
                         // 채팅방 생성
-                        ArrayList<Member> firstMember = new ArrayList<>();
-                        firstMember.add( new Member(contents.getwUid(), contents.getwName()) );
-                        ChatRoomData chatRoom = new ChatRoomData("대화를 시작하세요.", firstMember, System.currentTimeMillis());
+                        ChatRoomData chatRoom = new ChatRoomData("대화를 시작하세요.", System.currentTimeMillis());
+                        chatRoom.addMember(new Member(contents.getwUid(), contents.getwName()));
+                        globalData.getAccount().addChatRoom(chatRoom.getRoomID());
                         // 채팅방 DB 추가
                         mDatabase.child("message_room_list").child(chatRoom.getRoomID()).setValue(chatRoom);
+                        mDatabase.child("accounts").child(globalData.getAccount().getUid()).child("roomDataMap").setValue(globalData.getAccount().getRoomDataMap());
+
                         // 해당 채팅방으로 이동하는 Activity 실행
                         Intent chatActivityIntent = new Intent(context, ChatActivity.class);
                         chatActivityIntent.putExtra("ID_ROOM", chatRoom.getRoomID()); //채팅방 식별자를 넘겨준다.
