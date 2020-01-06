@@ -69,6 +69,10 @@ public class Account {
         return uid;
     }
 
+    public void clearChatRoomMap() {
+        this.roomDataMap.clear();
+    }
+
     public void addChatRoom(String roomID) {
         roomDataMap.put(roomID,"");
     }

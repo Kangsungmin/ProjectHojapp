@@ -28,7 +28,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     // [START declare_auth]
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
-
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override

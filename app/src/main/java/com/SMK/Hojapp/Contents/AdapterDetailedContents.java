@@ -240,5 +240,7 @@ public class AdapterDetailedContents extends RecyclerView.Adapter<RecyclerView.V
             tvLike = itemView.findViewById(R.id.commentLikeText);
             tvCommentCount = itemView.findViewById(R.id.commentOfCommentCountText);
         }
+
+
     }
 }
