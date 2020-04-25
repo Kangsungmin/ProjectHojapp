@@ -10,7 +10,7 @@ android {
         applicationId "com.SMK.Hojapp"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 12
+        versionCode 13
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -48,6 +48,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.1.0'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'com.github.MdFarhanRaja:SearchableSpinner:1.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

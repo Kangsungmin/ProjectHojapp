@@ -13,7 +13,7 @@ public class Account {
     private String name;
     private long lastLoginTime;
     private Map<String, String> roomDataMap; // 자신이 참가하고있는 채팅방을 Set으로 관리한다.
-
+    private String location;
     private Random rnd;
 
     public Account()
@@ -68,6 +68,10 @@ public class Account {
     public String getUid(){
         return uid;
     }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String data) { location = data; }
 
     public void clearChatRoomMap() {
         this.roomDataMap.clear();

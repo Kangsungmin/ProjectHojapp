@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name = "Region">
+        <item> Glendenning </item>
+        <item> Bungarribee </item>
+        <item> Woodcroft </item>
+        <item> Marayong </item>
+        <item> Kings Park </item>
+        <item> Doonside </item>
+        <item> Blacktown </item>
+        <item> Arndell park </item>
+        <item> Kings Langley </item>
+        <item> Seven Hills </item>
+        <item> Prospect </item>
+        <item> Girraween </item>
+        <item> Toongabbie </item>
+        <item> Old Toongabbie </item>
+        <item> Constitution Hill </item>
+        <item> Wentworthville </item>
+        <item> South Wentworthville </item>
+        <item> Huntingwood </item>
+        <item> Winston Hills </item>
+        <item> Northmead </item>
+        <item> North Parramatta </item>
+        <item> Parramatta </item>
+        <item> Westmead </item>
+        <item> North Rocks </item>
+        <item> Carlingford </item>
+        <item> baulk ham Hills </item>
+        <item> west pennant Hills </item>
+        <item> Camellia </item>
+        <item> Rosehill </item>
+        <item> Clyde </item>
+        <item> Rydalmere </item>
+        <item> Dundas </item>
+        <item> Telopea </item>
+        <item> Dundas Valley  </item>
+        <item> Epping </item>
+        <item> Marsfield </item>
+        <item> Eastwood </item>
+        <item> Denistone West </item>
+        <item> Denistone East </item>
+        <item> Denistone </item>
+        <item> West Ryde </item>
+        <item> Meadowbank </item>
+        <item> Rhodes </item>
+        <item> Wentworth Point </item>
+        <item> Concord West </item>
+        <item> Ermington </item>
+        <item> Melrose Park </item>
+        <item> Silverwater </item>
+        <item> Newington </item>
+        <item> Concord </item>
+        <item> Cabarita </item>
+        <item> Breakfast Point </item>
+        <item> Mortlake </item>
+        <item> Canada Bay </item>
+        <item> Abbotsford </item>
+        <item> Wareemba </item>
+        <item> Five Dock </item>
+        <item> Chiswick </item>
+        <item> Russell Lea </item>
+        <item> Rodd Point </item>
+        <item> Macquarie Park </item>
+        <item> North Ryde </item>
+        <item> East Ryde </item>
+        <item> Ryde  </item>
+        <item> Putney </item>
+        <item> Tennyson Point </item>
+        <item> Gladesville </item>
+        <item> Huntleys Cove </item>
+        <item> Hunters hill </item>
+        <item> Linley Point  </item>
+        <item> Rodd Point </item>
+        <item> Drummoyne </item>
+        <item> Chatswood </item>
+        <item> Lane Cove North </item>
+        <item> Lane Cove </item>
+        <item> Lane Cove west </item>
+        <item> Riverview </item>
+        <item> Northwood </item>
+        <item> Longueville </item>
+        <item> Woolwich </item>
+        <item> Greenwich </item>
+        <item> Waverton </item>
+        <item> North Sydney </item>
+        <item> Roseville </item>
+        <item> Castle Cove </item>
+        <item> Middle Cove </item>
+        <item> Willoughby East </item>
+        <item> Castlecrag </item>
+        <item> Northbridge </item>
+        <item> Cremorne </item>
+        <item> Artarmon </item>
+        <item> Naremburn </item>
+        <item> Cammeray </item>
+        <item> Crow Nest </item>
+        <item> Neutral Bay </item>
+        <item> Kirribilli </item>
+        <item> Pemulwuy </item>
+        <item> Greystanes </item>
+        <item> Smithfield </item>
+        <item> Wetherill Park </item>
+        <item> Prairiewood </item>
+        <item> Bossley Park </item>
+        <item> Greenfield Park </item>
+        <item> Edensor Park </item>
+        <item> Bonnyrigg Heights </item>
+        <item> Wakeley </item>
+        <item> Fairfield West </item>
+        <item> St Johns Park </item>
+        <item> Cabramatta West </item>
+        <item> Mount Pritchard </item>
+        <item> Bonnyrigg </item>
+        <item> Heckenberg </item>
+        <item> Green Valley </item>
+        <item> Busby </item>
+        <item> Hinchinbrook </item>
+        <item> Ashcroft </item>
+        <item> Liverpool </item>
+        <item> Holroyd </item>
+        <item> Granville </item>
+        <item> Merrylands </item>
+        <item> Merrylands West </item>
+        <item> Guildford </item>
+        <item> Guildford West </item>
+        <item> Fairfield </item>
+        <item> Fairfield  </item>
+        <item> Old Guildford  </item>
+        <item> Guildford </item>
+        <item> Lidcombe </item>
+        <item> Berala </item>
+        <item> Villawood </item>
+        <item> Chester Hill </item>
+        <item> Sefton </item>
+        <item> Regents Park </item>
+        <item> Potts Hill </item>
+        <item> Canley Heights </item>
+        <item> Cabramatta </item>
+        <item> Lansdowne </item>
+        <item> Lansvale </item>
+        <item> Chpping Norton </item>
+        <item> Warwick Farm </item>
+        <item> Bass Hill </item>
+        <item> Georges Hall </item>
+        <item> Bankstown Aerodrome </item>
+        <item> Condell Park </item>
+        <item> Bankstown </item>
+        <item> Yagoona </item>
+        <item> Homebush </item>
+        <item> Strathfield </item>
+        <item> Burwood </item>
+        <item> Strathfield South </item>
+        <item> Enfield </item>
+        <item> Burwood Heights </item>
+        <item> Ashfield </item>
+        <item> Haberfield </item>
+        <item> Chullora </item>
+        <item> Mount Lewis </item>
+        <item> Greenacre </item>
+        <item> Belfield </item>
+        <item> Lakemba </item>
+        <item> Belmore </item>
+        <item> Campsie </item>
+        <item> Clemton Park </item>
+        <item> Earlwood </item>
+        <item> Bulwich Hill </item>
+        <item> Marrickville </item>
+        <item> Punchbowl </item>
+        <item> Roselands </item>
+        <item> Turrella </item>
+        <item> Birchgrove </item>
+        <item> Balmain </item>
+        <item> Rozelle </item>
+        <item> The Rocks </item>
+        <item> Potts Point </item>
+        <item> Darling hurst </item>
+        <item> Surry Hills </item>
+        <item> Ultimo </item>
+        <item> Annandale </item>
+        <item> Leichhardt </item>
+        <item> Newtown </item>
+        <item> Enmore </item>
+        <item> Alexandria </item>
+        <item> Waterloo </item>
+        <item> Zetland </item>
+        <item> Kensington  </item>
+        <item> Randwick </item>
+        <item> Kingsford </item>
+        <item> Eastlakes </item>
+        <item> Rosebery </item>
+        <item> Mascot </item>
+        <item> Rose Bay </item>
+        <item> Dover Heights </item>
+        <item> Kensington </item>
+        <item> Bronte </item>
+        <item> South Coogee </item>
+        <item> Eastgardens </item>
+        <item> Botany </item>
+        <item> Pagewood </item>
+        <item> Vaucluse </item>
+        <item> Hillsdale </item>
+        <item> Maroubra </item>
+        <item> Matraville </item>
+        <item> Malabar </item>
+        <item> Chifley </item>
+        <item> Phillip Bay </item>
+        <item> Port Botany </item>
+        <item> Little Bay </item>
+        <item> La Perouse </item>
+        <item> Arncliffe </item>
+        <item> Banksia </item>
+        <item> Rockdale </item>
+        <item> Bexley </item>
+        <item> Hurstville </item>
+        <item> Penshurst </item>
+    </string-array>
+</resources>

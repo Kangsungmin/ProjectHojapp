@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.SMK.Hojapp">
+        package="com.SMK.Hojapp">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE0"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE0" />
 
     <application
             android:name=".GlobalData"
@@ -13,40 +13,35 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".Profile.ProfileActivity">
+        <activity android:name=".Contents.RegisterRiderActivity"
+                android:parentActivityName=".Contents.NewsFeedActivity">
         </activity>
-        <activity android:name=".Chat.ChatRoomListActivity">
-        </activity>
-        <activity android:name=".Chat.ChatActivity">
-        </activity>
-        <activity android:name=".Contents.ContentsDetailActivity">
-        </activity>
-        <activity android:name=".Contents.Fragment.Market">
-        </activity>
-        <activity android:name=".Contents.Fragment.TimeLine">
-        </activity>
+        <activity android:name=".Contents.DeliveryDetailedActivity" />
+        <activity android:name=".Profile.ProfileActivity" />
+        <activity android:name=".Chat.ChatRoomListActivity" />
+        <activity android:name=".Chat.ChatActivity" />
+        <activity android:name=".Contents.ContentsDetailActivity" />
+        <activity android:name=".Contents.Fragment.Market" />
+        <activity android:name=".Contents.Fragment.TimeLine" />
         <activity
                 android:name=".Basic.SplashActivity"
                 android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.LoginActivity">
-        </activity>
+        <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Contents.NewsFeedActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login.JoinMemberActivity">
-        </activity>
-        <activity android:name=".Contents.WriteContentsActivity">
-        </activity>
+        <activity android:name=".Login.JoinMemberActivity" />
+        <activity android:name=".Contents.WriteContentsActivity" />
     </application>
 
 </manifest>

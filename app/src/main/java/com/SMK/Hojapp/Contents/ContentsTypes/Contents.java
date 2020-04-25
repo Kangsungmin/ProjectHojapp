@@ -3,6 +3,7 @@ package com.SMK.Hojapp.Contents.ContentsTypes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 public class Contents {
@@ -10,13 +11,18 @@ public class Contents {
     String category;     // 카테고리
     String cid;          // 콘텐츠 식별 ID
     String parentCid;    // 댓글일 경우 : 부모 게시글 id
+    String state;
     String title;
+    String subTitle;
+    String titleUrl;
+    String profileUrl;
     String body;
     ArrayList<String> bodyPicUrlList;
     String wUid;         // 작성자 uid
     String wName;        // 작성자 name
     int hitCount;        // 조회수
     // 좋아요를 누를 유저 id 리스트
+    Map<String, Integer> locationHash; // 위치 해시태그
     Map<String, Long> likeUserMap; // 유저 식별자 : 키 , 좋아요 누른 시간 : 값
     // 댓글이 달린 댓글(게시글) id 리스트
     ArrayList<Contents> commentList;
@@ -24,6 +30,7 @@ public class Contents {
     boolean isEdited;    // 수정 여부
 
     public Contents() {
+        this.locationHash = new HashMap<String, Integer>();
         this.likeUserMap = new HashMap<String, Long>();
         this.commentList = new ArrayList<Contents>();
     }
@@ -38,6 +45,7 @@ public class Contents {
         this.wUid = writerUid;
         this.wName = writerName;
         this.createTime = createTime;
+        this.locationHash = new HashMap<>();
         this.likeUserMap = new HashMap<>();
         this.commentList = new ArrayList<>();
         this.bodyPicUrlList = new ArrayList<>();
@@ -51,6 +59,7 @@ public class Contents {
         this.wUid = writerUid;
         this.wName = writerName;
         this.createTime = createTime;
+        this.locationHash = new HashMap<>();
         this.likeUserMap = new HashMap<>();
         this.commentList = new ArrayList<>();
         this.bodyPicUrlList = new ArrayList<>();
@@ -91,6 +100,14 @@ public class Contents {
         this.parentCid = parentCid;
     }
 
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
     public String getTitle() {
         return title;
     }
@@ -98,6 +115,22 @@ public class Contents {
     public void setTitle(String title) {
         this.title = title;
     }
+
+    public String getSubTitle() {
+        return subTitle;
+    }
+
+    public void setSubTitle(String title) {
+        this.subTitle = title;
+    }
+
+    public String getTitleUrl(){ return titleUrl; }
+
+    public void setTitleUrl(String url){ this.titleUrl = url; }
+
+    public String getProfileUrl(){return profileUrl;}
+
+    public void setProfileUrl(String url){this.profileUrl = url;}
 
     public String getBody() {
         return body;
@@ -163,6 +196,8 @@ public class Contents {
         }
         else return false;
     }
+
+    public Map<String, Integer> getLocationHash() { return  this.locationHash; }
 
     public Map<String, Long> getLikeUserMap() {
         return this.likeUserMap;
